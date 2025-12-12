@@ -5,7 +5,7 @@ export const storagePlugin = s3Storage({
     media: {
       prefix: 'media',
       generateFileURL: ({ filename, prefix }) => {
-        return `${process.env.R2_PUBLIC_URL}/${prefix}/${filename}`
+        return `${process.env.R2_PUBLIC_URL}/${prefix || 'media'}/${filename}`
       },
     },
   },

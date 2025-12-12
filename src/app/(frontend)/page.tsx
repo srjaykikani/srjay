@@ -1,67 +1,70 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
-import { getPayload } from 'payload'
-import React from 'react'
+import { Suspense } from 'react'
 
-import { PayloadIcon } from '@/components/icons/payload-icon'
-import config from '@/payload.config'
+import { getPayload } from 'payload'
+
+import config from '@payload-config'
+import { AboutSection } from '@/components/sections/AboutSection'
+import { ContactSection } from '@/components/sections/ContactSection'
+import { ExperienceSection } from '@/components/sections/ExperienceSection'
+import { GitHubSection, GitHubContributionFallback } from '@/components/sections/GitHubSection'
+import { HeroSection } from '@/components/sections/HeroSection'
+import { OverviewSection } from '@/components/sections/OverviewSection'
+import { ProjectsSection } from '@/components/sections/ProjectsSection'
+import { SocialLinksSection } from '@/components/sections/SocialLinksSection'
+import { TechStackSection } from '@/components/sections/TechStackSection'
+import { getGitHubContributions } from '@/lib/github-contributions'
+import { SectionLayout } from '@/components/Panel'
 
 export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+  const payload = await getPayload({ config })
+
+  // Fetch all data in parallel
+  const [profile, projects, experiences, skills] = await Promise.all([
+    payload.findGlobal({
+      slug: 'profile',
+      depth: 2,
+    }),
+    payload.find({
+      collection: 'projects',
+      where: { featured: { equals: true } },
+      sort: '-order',
+      depth: 1,
+      limit: 10,
+    }),
+    payload.find({
+      collection: 'experiences',
+      sort: '-order',
+      depth: 1,
+      limit: 20,
+    }),
+    payload.find({
+      collection: 'skills',
+      sort: '-order',
+      depth: 0,
+      limit: 100,
+    }),
+  ])
+
+  const githubUsername = profile.github || 'srjaykikani'
+  const contributions = getGitHubContributions(githubUsername)
 
   return (
-    <div className="flex-grow flex flex-col items-center justify-center px-6 py-12">
-      <div className="flex flex-col items-center gap-8 max-w-2xl text-center">
-        <div className="flex items-center gap-4">
-          <PayloadIcon className="w-12 h-12 md:w-16 md:h-16" />
-          <span className="text-4xl md:text-5xl font-bold text-muted-foreground">+</span>
-          <Image
-            src="/trpc-logo.png"
-            alt="tRPC Logo"
-            width={64}
-            height={64}
-            className="w-12 h-12 md:w-16 md:h-16 rounded-xl"
-          />
-        </div>
-
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-          Payload <span className="text-muted-foreground">+</span> tRPC
-        </h1>
-
-        <p className="text-lg md:text-xl text-muted-foreground max-w-md">
-          {user
-            ? `Welcome back, ${user.email}`
-            : 'Type-safe APIs with end-to-end typesafety'}
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-          <a
-            href={payloadConfig.routes.admin}
-            className="px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-opacity"
-          >
-            Admin Panel
-          </a>
-          <a
-            href="https://payloadcms.com/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-border font-medium rounded-lg hover:bg-accent transition-colors"
-          >
-            Payload Docs
-          </a>
-          <a
-            href="https://trpc.io/docs/client/tanstack-react-query/server-components"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-border font-medium rounded-lg hover:bg-accent transition-colors"
-          >
-            tRPC Docs
-          </a>
-        </div>
+    <main className="max-w-screen overflow-x-hidden px-4 sm:px-6 py-4">
+      <div className="mx-auto md:max-w-3xl flex flex-col">
+        <HeroSection profile={profile} />
+        <OverviewSection profile={profile} />
+        <AboutSection profile={profile} />
+        <SocialLinksSection profile={profile} />
+        <SectionLayout title="GitHub" className="scroll-mt-12" id="github">
+          <Suspense fallback={<GitHubContributionFallback />}>
+            <GitHubSection username={githubUsername} contributions={contributions} />
+          </Suspense>
+        </SectionLayout>
+        <TechStackSection skills={skills.docs} />
+        <ExperienceSection experiences={experiences.docs} />
+        <ProjectsSection projects={projects.docs} />
+        <ContactSection profile={profile} />
       </div>
-    </div>
+    </main>
   )
 }
