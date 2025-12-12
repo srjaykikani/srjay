@@ -38,13 +38,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   title: {
-    default: 'Payload + tRPC',
-    template: '%s | Payload + tRPC',
+    default: 'srjay',
+    template: '%s | srjay',
   },
-  description: 'A type-safe template built with Payload CMS and tRPC.',
+  description: 'Portfolio of srjay - Full-stack developer specializing in modern web technologies.',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@_srjay',
   },
 }

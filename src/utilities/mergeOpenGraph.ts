@@ -4,14 +4,14 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'A type-safe template built with Payload CMS and tRPC.',
+  description: 'Portfolio of srjay - Full-stack developer specializing in modern web technologies.',
   images: [
     {
       url: `${getServerSideURL()}/og-image.png`,
     },
   ],
-  siteName: 'Payload + tRPC Template',
-  title: 'Payload + tRPC Template',
+  siteName: 'srjay',
+  title: 'srjay',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
