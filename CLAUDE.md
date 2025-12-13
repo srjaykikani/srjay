@@ -34,19 +34,26 @@ pnpm generate:types   # Regenerate types after schema changes
 ```
 src/
 ├── app/                 # Next.js App Router
-│   ├── (frontend)/      # Public routes
+│   ├── (frontend)/      # Public routes (/, /blog, /gallery)
 │   ├── (payload)/       # Payload Admin
 │   └── api/trpc/        # tRPC endpoint
 ├── components/          # React components
 │   ├── Header/          # Site header (nav, theme)
 │   ├── Footer/          # Site footer
 │   ├── Link/            # CMSLink component
-│   └── Logo/            # Logo with theme support
+│   ├── Logo/            # Logo with theme support
+│   ├── Blog/            # Blog components (BlogCard)
+│   ├── Gallery/         # Gallery with PhotoSwipe lightbox
+│   ├── ScrollSpy/       # Fixed navigation component
+│   ├── TableOfContents/ # Blog post TOC
+│   ├── TechTag/         # Skill icons with tags
+│   ├── sections/        # Homepage sections
+│   └── kibo-ui/         # GitHub contribution graph
 ├── payload/             # Payload CMS
 │   ├── access/          # Access control (anyone, authenticated)
-│   ├── collections/     # CMS collections
+│   ├── collections/     # CMS collections (Blogs, Gallery, etc.)
 │   ├── fields/          # Reusable fields (link)
-│   ├── globals/         # Header, Footer globals
+│   ├── globals/         # Header, Footer, Profile globals
 │   ├── plugins/         # Payload plugins (storage)
 │   └── shared/          # Collection groups
 ├── providers/           # React providers
@@ -57,7 +64,9 @@ src/
 │   ├── client.tsx       # Client provider (useTRPC)
 │   ├── server.tsx       # Server proxy (HydrateClient)
 │   └── routers/_app.ts  # Root router
-├── utilities/           # Shared utils
+├── lib/                 # Shared libraries (cn utility)
+├── hooks/               # Custom React hooks (usePhotoSwipe)
+├── utilities/           # Shared utils (getURL, deepMerge, etc.)
 ├── payload.config.ts    # Payload configuration
 └── payload-types.ts     # Generated types
 ```

@@ -112,20 +112,16 @@ export const Media: CollectionConfig = {
 
 ## Utility Functions
 
-Available utilities in `src/utilities/`:
+Available utilities in `src/utilities/` and `src/lib/`:
 
 ```typescript
 // cn() - Merge Tailwind classes (clsx + tailwind-merge)
-import { cn } from '@/utilities/ui'
+import { cn } from '@/lib/utils'
 cn('px-4 py-2', isActive && 'bg-blue-500', className)
 
 // deepMerge() - Deep object merging
 import { deepMerge } from '@/utilities/deepMerge'
 const merged = deepMerge(defaults, overrides)
-
-// isValidURL() - Validate URL format
-import { isValidURL } from '@/utilities/is-valid-url'
-isValidURL('https://example.com') // true
 
 // getURL() - Get server URL
 import { getServerSideURL, getClientSideURL } from '@/utilities/getURL'
