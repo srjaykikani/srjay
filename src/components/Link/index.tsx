@@ -1,4 +1,4 @@
-import { cn } from '@/utilities/ui'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 
