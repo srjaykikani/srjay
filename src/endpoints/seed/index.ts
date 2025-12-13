@@ -1,7 +1,9 @@
 import type { Payload } from 'payload'
 
+import { seedBlogs } from './blogs'
 import { seedExperiences } from './experiences'
 import { seedMedia } from './media'
+import { seedHeader } from './header'
 import { seedProfile } from './profile'
 import { seedProjects } from './projects'
 import { seedSkills } from './skills'
@@ -11,6 +13,14 @@ export async function seed(payload: Payload): Promise<void> {
 
   // Clear existing data in dependency order
   payload.logger.info('Clearing existing data...')
+
+  // Clear blogs first
+  await payload.delete({
+    collection: 'blogs',
+    where: { id: { exists: true } },
+    context: { disableRevalidate: true },
+  })
+  payload.logger.info('Cleared blogs')
 
   // Clear collections that depend on media first
   await payload.delete({
@@ -66,6 +76,12 @@ export async function seed(payload: Payload): Promise<void> {
 
   // 5. Skills (no dependencies)
   await seedSkills(payload)
+
+  // 6. Header
+  await seedHeader(payload)
+
+  // 7. Blogs (depends on media)
+  await seedBlogs(payload, mediaMap)
 
   payload.logger.info('Seed completed successfully!')
 }
