@@ -43,7 +43,7 @@
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
     "lucide-react": "^0.561.0",
-    "next": "15.4.8",
+    "next": "15.4.10",
     "payload": "3.68.2",
     "photoswipe": "^5.4.4",
     "postcss": "^8.5.6",
