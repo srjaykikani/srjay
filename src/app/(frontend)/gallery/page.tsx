@@ -22,7 +22,7 @@ export default async function GalleryPage() {
 
   return (
     <main className="max-w-screen overflow-x-hidden px-4 sm:px-6 py-4">
-      <div className="mx-auto max-w-4xl py-12">
+      <div className="mx-auto max-w-3xl py-12">
         <h1 className="text-4xl font-bold tracking-tight text-foreground mb-8">
           Gallery
         </h1>
