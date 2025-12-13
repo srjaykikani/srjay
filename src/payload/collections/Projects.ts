@@ -68,18 +68,13 @@ export const Projects: CollectionConfig = {
       },
     },
     {
-      name: 'tags',
-      type: 'array',
-      label: 'Technology Tags',
-      fields: [
-        {
-          name: 'tag',
-          type: 'text',
-          required: true,
-        },
-      ],
+      name: 'technologies',
+      type: 'relationship',
+      relationTo: 'skills',
+      hasMany: true,
+      label: 'Technologies',
       admin: {
-        initCollapsed: true,
+        description: 'Technologies/skills used in this project',
       },
     },
     {
@@ -155,14 +150,12 @@ export const Projects: CollectionConfig = {
         if (!context.disableRevalidate) {
           if (doc._status === 'published') {
             payload.logger.info(`Revalidating project: ${doc.slug}`)
-            revalidatePath(`/projects/${doc.slug}`)
             revalidatePath('/')
             revalidateTag('projects')
           }
 
           if (previousDoc?._status === 'published' && doc._status !== 'published') {
             payload.logger.info(`Revalidating unpublished project: ${previousDoc.slug}`)
-            revalidatePath(`/projects/${previousDoc.slug}`)
             revalidatePath('/')
             revalidateTag('projects')
           }
@@ -173,7 +166,6 @@ export const Projects: CollectionConfig = {
     afterDelete: [
       async ({ doc, req: { context } }) => {
         if (!context.disableRevalidate) {
-          revalidatePath(`/projects/${doc?.slug}`)
           revalidatePath('/')
           revalidateTag('projects')
         }

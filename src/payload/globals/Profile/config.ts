@@ -44,11 +44,36 @@ export const Profile: GlobalConfig = {
               ],
             },
             {
+              name: 'tagline',
+              label: 'Short Bio / Tagline',
+              type: 'textarea',
+              admin: {
+                description: 'A short description shown in the hero section (2-3 sentences)',
+              },
+            },
+            {
               name: 'bio',
-              label: 'About Me',
+              label: 'Full About Me',
               type: 'richText',
               admin: {
-                description: 'Write about yourself for the About section',
+                description: 'Detailed bio for the About page (optional)',
+              },
+            },
+            {
+              name: 'languages',
+              label: 'Languages',
+              type: 'array',
+              fields: [
+                {
+                  name: 'language',
+                  label: 'Language',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+              admin: {
+                description: 'Languages you speak',
+                initCollapsed: true,
               },
             },
           ],

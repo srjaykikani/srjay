@@ -26,10 +26,18 @@ export const Skills: CollectionConfig = {
       required: true,
     },
     {
-      name: 'icon',
+      name: 'description',
       type: 'text',
       admin: {
-        description: 'Icon identifier (lucide icon name or devicon class)',
+        description: 'Short description (e.g., "Frontend Framework", "Database")',
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Skill icon/logo (40x40px recommended)',
       },
     },
     {

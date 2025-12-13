@@ -13,6 +13,7 @@ for (const envVar of requiredEnvVars) {
   }
 }
 
+import { Blogs } from './payload/collections/Blogs'
 import { Experiences } from './payload/collections/Experiences'
 import { Gallery } from './payload/collections/Gallery'
 import { Media } from './payload/collections/Media'
@@ -60,7 +61,7 @@ export default buildConfig({
       titleSuffix: '- Admin',
     },
   },
-  collections: [Users, Media, Projects, Experiences, Skills, Gallery],
+  collections: [Users, Media, Projects, Experiences, Skills, Gallery, Blogs],
   globals: [Header, Footer, Profile],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET!,
