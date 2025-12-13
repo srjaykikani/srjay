@@ -76,18 +76,13 @@ const DEFAULT_LABELS: Labels = {
   },
 }
 
-// GitHub-style green theme colors (light/dark mode)
+// GitHub-style green theme colors using CSS variables (adapts via data-theme)
 const THEME = cn(
-  // Level 0: empty/background
-  'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',
-  // Level 1: light green
-  'data-[level="1"]:fill-[#9be9a8] dark:data-[level="1"]:fill-[#0e4429]',
-  // Level 2: medium green
-  'data-[level="2"]:fill-[#40c463] dark:data-[level="2"]:fill-[#006d32]',
-  // Level 3: darker green
-  'data-[level="3"]:fill-[#30a14e] dark:data-[level="3"]:fill-[#26a641]',
-  // Level 4: darkest green (most contributions)
-  'data-[level="4"]:fill-[#216e39] dark:data-[level="4"]:fill-[#39d353]',
+  'data-[level="0"]:fill-[var(--github-level-0)]',
+  'data-[level="1"]:fill-[var(--github-level-1)]',
+  'data-[level="2"]:fill-[var(--github-level-2)]',
+  'data-[level="3"]:fill-[var(--github-level-3)]',
+  'data-[level="4"]:fill-[var(--github-level-4)]',
 )
 
 type ContributionGraphContextType = {
@@ -259,7 +254,9 @@ export const ContributionGraph = ({
   const labels = { ...DEFAULT_LABELS, ...labelsProp }
   const labelHeight = fontSize + LABEL_MARGIN
 
-  const year = data.length > 0 ? getYear(parseISO(data[0].date)) : new Date().getFullYear()
+  // Use the last (most recent) date's year for display
+  const year =
+    data.length > 0 ? getYear(parseISO(data[data.length - 1].date)) : new Date().getFullYear()
 
   const totalCount =
     typeof totalCountProp === 'number'

@@ -3,159 +3,118 @@
 /* Import Inter font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Configure dark mode to use data-theme attribute */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@theme inline {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
-@theme {
-  /* Font family - Inter for everything except logo */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-  /* Container */
-  --container-padding: 1rem;
-  --container-max-width: 80rem;
-
-  /* Border radius - clean rounded corners */
-  --radius: 0.5rem;
-
-  /* Colors - Light mode (zinc-based like chanhdai.com) */
-  /* white */
-  --color-background: oklch(1 0 0);
-  /* zinc-950 */
-  --color-foreground: oklch(0.141 0.005 285.823);
-
-  /* white */
-  --color-card: oklch(1 0 0);
-  /* zinc-950 */
-  --color-card-foreground: oklch(0.141 0.005 285.823);
-
-  /* white */
-  --color-popover: oklch(1 0 0);
-  /* zinc-950 */
-  --color-popover-foreground: oklch(0.141 0.005 285.823);
-
-  /* zinc-950 */
-  --color-primary: oklch(0.141 0.005 285.823);
-  /* zinc-50 */
-  --color-primary-foreground: oklch(0.985 0 0);
-
-  /* zinc-100 */
-  --color-secondary: oklch(0.967 0.001 286.375);
-  /* zinc-950 */
-  --color-secondary-foreground: oklch(0.141 0.005 285.823);
-
-  /* zinc-100 */
-  --color-muted: oklch(0.967 0.001 286.375);
-  /* zinc-500 */
-  --color-muted-foreground: oklch(0.552 0.016 285.938);
-
-  /* zinc-100 */
-  --color-accent: oklch(0.967 0.001 286.375);
-  /* zinc-900 */
-  --color-accent-foreground: oklch(0.21 0.006 285.885);
-
-  /* red-600 */
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-destructive-foreground: oklch(0.985 0 0);
-
-  /* zinc-200 */
-  --color-border: oklch(0.92 0.004 286.32);
-  /* zinc-200 */
-  --color-input: oklch(0.92 0.004 286.32);
-  /* zinc-400 */
-  --color-ring: oklch(0.705 0.015 286.067);
-
-  /* green-500 */
-  --color-success: oklch(0.723 0.219 149.579);
-  /* amber-500 */
-  --color-warning: oklch(0.769 0.188 70.08);
-  /* red-600 */
-  --color-error: oklch(0.577 0.245 27.325);
-
-  /* Soft zinc colors for text */
-  /* zinc-500 */
-  --color-text-secondary: oklch(0.552 0.016 285.938);
-  /* zinc-400 */
-  --color-text-tertiary: oklch(0.705 0.015 286.067);
+  --radius: 0.625rem;
 }
 
-/* Dark mode theme (zinc-based like chanhdai.com) */
+:root {
+  --background: var(--color-white);
+  --foreground: var(--color-zinc-900);
+  /* GitHub contribution graph colors (light mode) */
+  --github-level-0: #ebedf0;
+  --github-level-1: #9be9a8;
+  --github-level-2: #40c463;
+  --github-level-3: #30a14e;
+  --github-level-4: #216e39;
+  --card: var(--color-white);
+  --card-foreground: var(--color-zinc-900);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-zinc-900);
+  --primary: var(--color-zinc-800);
+  --primary-foreground: var(--color-zinc-50);
+  --secondary: color-mix(in srgb, var(--color-black) 4%, transparent);
+  --secondary-foreground: var(--color-zinc-900);
+  --muted: color-mix(in srgb, var(--color-black) 4%, transparent);
+  --muted-foreground: var(--color-zinc-600);
+  --accent: color-mix(in srgb, var(--color-black) 4%, transparent);
+  --accent-foreground: var(--color-zinc-900);
+  --destructive: var(--color-red-500);
+  --destructive-foreground: var(--color-red-700);
+  --info: var(--color-blue-500);
+  --info-foreground: var(--color-blue-700);
+  --success: var(--color-emerald-500);
+  --success-foreground: var(--color-emerald-700);
+  --warning: var(--color-amber-500);
+  --warning-foreground: var(--color-amber-700);
+  --border: color-mix(in srgb, var(--color-black) 12%, transparent);
+  --input: color-mix(in srgb, var(--color-black) 12%, transparent);
+  --ring: var(--color-zinc-400);
+}
+
 [data-theme='dark'] {
-  /* zinc-950 */
-  --color-background: oklch(0.141 0.005 285.823);
-  /* zinc-50 */
-  --color-foreground: oklch(0.985 0 0);
-
-  /* zinc-900 */
-  --color-card: oklch(0.21 0.006 285.885);
-  /* zinc-50 */
-  --color-card-foreground: oklch(0.985 0 0);
-
-  /* zinc-900 */
-  --color-popover: oklch(0.21 0.006 285.885);
-  /* zinc-50 */
-  --color-popover-foreground: oklch(0.985 0 0);
-
-  /* zinc-50 */
-  --color-primary: oklch(0.985 0 0);
-  /* zinc-950 */
-  --color-primary-foreground: oklch(0.141 0.005 285.823);
-
-  /* zinc-800 */
-  --color-secondary: oklch(0.274 0.006 286.033);
-  /* zinc-50 */
-  --color-secondary-foreground: oklch(0.985 0 0);
-
-  /* zinc-800 */
-  --color-muted: oklch(0.274 0.006 286.033);
-  /* zinc-400 */
-  --color-muted-foreground: oklch(0.705 0.015 286.067);
-
-  /* zinc-800 */
-  --color-accent: oklch(0.274 0.006 286.033);
-  /* zinc-50 */
-  --color-accent-foreground: oklch(0.985 0 0);
-
-  /* red-700 */
-  --color-destructive: oklch(0.505 0.213 27.518);
-  /* zinc-50 */
-  --color-destructive-foreground: oklch(0.985 0 0);
-
-  /* zinc-800 */
-  --color-border: oklch(0.274 0.006 286.033);
-  /* zinc-800 */
-  --color-input: oklch(0.274 0.006 286.033);
-  /* zinc-500 */
-  --color-ring: oklch(0.552 0.016 285.938);
-
-  /* green-500 */
-  --color-success: oklch(0.723 0.219 149.579);
-  /* amber-500 */
-  --color-warning: oklch(0.769 0.188 70.08);
-  /* red-700 */
-  --color-error: oklch(0.505 0.213 27.518);
-
-  /* zinc-400 */
-  --color-text-secondary: oklch(0.705 0.015 286.067);
-  /* zinc-500 */
-  --color-text-tertiary: oklch(0.552 0.016 285.938);
+  --background: var(--color-zinc-950);
+  --foreground: var(--color-zinc-100);
+  /* GitHub contribution graph colors (dark mode) */
+  --github-level-0: #161b22;
+  --github-level-1: #0e4429;
+  --github-level-2: #006d32;
+  --github-level-3: #26a641;
+  --github-level-4: #39d353;
+  --card: color-mix(in srgb, var(--color-zinc-900) 80%, var(--color-zinc-950));
+  --card-foreground: var(--color-zinc-100);
+  --popover: var(--color-zinc-900);
+  --popover-foreground: var(--color-zinc-100);
+  --primary: var(--color-zinc-100);
+  --primary-foreground: var(--color-zinc-900);
+  --secondary: color-mix(in srgb, var(--color-white) 6%, transparent);
+  --secondary-foreground: var(--color-zinc-100);
+  --muted: color-mix(in srgb, var(--color-white) 6%, transparent);
+  --muted-foreground: var(--color-zinc-400);
+  --accent: color-mix(in srgb, var(--color-white) 6%, transparent);
+  --accent-foreground: var(--color-zinc-100);
+  --destructive: var(--color-red-500);
+  --destructive-foreground: var(--color-red-400);
+  --info: var(--color-blue-500);
+  --info-foreground: var(--color-blue-400);
+  --success: var(--color-emerald-500);
+  --success-foreground: var(--color-emerald-400);
+  --warning: var(--color-amber-500);
+  --warning-foreground: var(--color-amber-400);
+  --border: color-mix(in srgb, var(--color-white) 12%, transparent);
+  --input: color-mix(in srgb, var(--color-white) 12%, transparent);
+  --ring: var(--color-zinc-500);
 }
 
-/* Reset heading styles */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: unset;
-  font-weight: unset;
+/* Prevent flash of unstyled content before theme is set */
+html {
+  opacity: 0;
 }
 
-/* Base border color */
-* {
-  border-color: var(--color-border);
+html[data-theme='dark'],
+html[data-theme='light'] {
+  opacity: 1;
 }
 
 /* Base styles */
@@ -170,164 +129,4 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-/* Theme flashing prevention - hides until theme is determined */
-html {
-  opacity: 0;
-}
-
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
-}
-
-/* Container utility */
-.container {
-  width: 100%;
-  max-width: var(--container-max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
-}
-
-@media (min-width: 640px) {
-  .container {
-    --container-padding: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    --container-padding: 2rem;
-  }
-}
-
-/* Edge color for subtle borders */
-@layer base {
-  :root {
-    /* color-mix with border and background like chanhdai.com */
-    --color-edge: color-mix(in oklab, oklch(0.92 0.004 286.32) 64%, oklch(1 0 0));
-  }
-
-  [data-theme='dark'] {
-    --color-edge: color-mix(in oklab, oklch(0.274 0.006 286.033) 64%, oklch(0.141 0.005 285.823));
-  }
-}
-
-/* Header scroll shadow - theme aware */
-[data-affix='true'] {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
-  border-bottom: 1px solid var(--color-border);
-}
-
-[data-theme='dark'] [data-affix='true'] {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* Accent2 color for hover states (like chanhdai.com) */
-@layer base {
-  :root {
-    /* accent (zinc-100) at 50% opacity */
-    --color-accent2: color-mix(in oklab, oklch(0.967 0.001 286.375) 50%, transparent);
-  }
-
-  [data-theme='dark'] {
-    /* accent (zinc-800) at 20% opacity */
-    --color-accent2: color-mix(in oklab, oklch(0.274 0.006 286.033) 20%, transparent);
-  }
-}
-
-/* No scrollbar utility */
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Link utility class */
-.link {
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-/* Tag component */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-border);
-  /* zinc-50 */
-  background-color: oklch(0.985 0 0);
-  padding: 0.125rem 0.375rem;
-  font-family: ui-monospace, monospace;
-  font-size: 0.75rem;
-  color: var(--color-muted-foreground);
-}
-
-[data-theme='dark'] .tag {
-  /* zinc-900 */
-  background-color: oklch(0.21 0.006 285.885);
-}
-
-/* Collapsible animations */
-@keyframes collapsible-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--collapsible-content-height);
-  }
-}
-
-@keyframes collapsible-up {
-  from {
-    height: var(--collapsible-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Ping animation for current indicator */
-@keyframes ping {
-  75%,
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.animate-ping {
-  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-/* Hover accent2 utility */
-.hover\:bg-accent2:hover {
-  background-color: var(--color-accent2);
 }

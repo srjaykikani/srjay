@@ -15,9 +15,12 @@ export function ThemeToggle() {
 
   return (
     <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
-      <Moon className="relative hidden [html[data-theme='dark']_&]:block size-4" />
-      <Sun className="relative hidden [html[data-theme='light']_&]:block size-4" />
-      <span className="sr-only">Theme Toggle</span>
+      {theme === 'dark' ? (
+        <Moon className="size-4" />
+      ) : (
+        <Sun className="size-4" />
+      )}
+      <span className="sr-only">Toggle theme</span>
     </Button>
   )
 }
