@@ -37,7 +37,7 @@ export function GitHubSection({ username, contributions }: GitHubSectionProps) {
   // With blockSize=10, blockMargin=3: 53 * 13 - 3 = 686px (fits well)
   return (
     <ContributionGraph
-      className="mx-auto py-2"
+      className=""
       data={data}
       blockSize={10}
       blockMargin={3}
@@ -46,18 +46,14 @@ export function GitHubSection({ username, contributions }: GitHubSectionProps) {
     >
       <ContributionGraphCalendar className="no-scrollbar" title="GitHub Contributions">
         {({ activity, dayIndex, weekIndex }) => (
-          <ContributionGraphBlock
-            activity={activity}
-            dayIndex={dayIndex}
-            weekIndex={weekIndex}
-          />
+          <ContributionGraphBlock activity={activity} dayIndex={dayIndex} weekIndex={weekIndex} />
         )}
       </ContributionGraphCalendar>
 
       <ContributionGraphFooter>
         <ContributionGraphTotalCount>
           {({ totalCount, year }) => (
-            <div className="text-muted-foreground text-sm">
+            <div className="text-muted-foreground text-xs">
               {totalCount.toLocaleString('en')} contributions in {year} on{' '}
               <a
                 className="font-medium underline underline-offset-4"

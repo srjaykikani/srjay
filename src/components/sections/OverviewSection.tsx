@@ -47,12 +47,12 @@ interface OverviewSectionProps {
 }
 
 function IntroItem({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <div className={`flex items-center gap-3 text-sm ${className || ''}`}>{children}</div>
+  return <div className={`flex items-center gap-2.5 text-sm ${className || ''}`}>{children}</div>
 }
 
 function IntroItemIcon({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex size-5 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:text-muted-foreground [&_svg]:size-4">
+    <div className="flex size-4 shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:text-muted-foreground [&_svg]:size-4">
       {children}
     </div>
   )
@@ -129,8 +129,8 @@ function CurrentLocalTimeItem({ timeZone }: { timeZone: string }) {
 
 export function OverviewSection({ profile }: OverviewSectionProps) {
   return (
-    <SectionLayout title="Overview" className="scroll-mt-12" id="overview">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <SectionLayout title="Overview" className="scroll-mt-12 py-6" id="overview">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {profile.title && (
           <IntroItem>
             <IntroItemIcon>

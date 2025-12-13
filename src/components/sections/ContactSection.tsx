@@ -1,6 +1,7 @@
 import { Mail, Phone } from 'lucide-react'
 
 import { SectionLayout } from '@/components/Panel'
+import { Button } from '@/components/ui/button'
 import type { Profile } from '@/payload-types'
 
 interface ContactSectionProps {
@@ -12,28 +13,30 @@ export function ContactSection({ profile }: ContactSectionProps) {
 
   return (
     <SectionLayout title="Contact" className="scroll-mt-12" id="contact">
-      <div className="space-y-4">
-        <p className="text-muted-foreground text-balance">
+      <div className="space-y-3">
+        <p className="text-sm text-muted-foreground text-balance">
           Interested in working together? Feel free to reach out.
         </p>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           {profile.email && (
-            <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-border bg-background hover:bg-muted/50 transition-colors"
+            <Button
+              variant="outline"
+              size="sm"
+              render={<a href={`mailto:${profile.email}`} />}
             >
-              <Mail className="size-4 text-muted-foreground" />
+              <Mail className="size-4" />
               {profile.email}
-            </a>
+            </Button>
           )}
           {profile.phone && (
-            <a
-              href={`tel:${profile.phone.replace(/\s/g, '')}`}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg border border-border bg-background hover:bg-muted/50 transition-colors"
+            <Button
+              variant="outline"
+              size="sm"
+              render={<a href={`tel:${profile.phone.replace(/\s/g, '')}`} />}
             >
-              <Phone className="size-4 text-muted-foreground" />
+              <Phone className="size-4" />
               {profile.phone}
-            </a>
+            </Button>
           )}
         </div>
       </div>

@@ -54,7 +54,7 @@ export function SocialLinksSection({ profile }: SocialLinksSectionProps) {
 
   return (
     <SectionLayout title="Connect" className="scroll-mt-12" id="social">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {socialLinks.map((link, index) => {
           const iconUrl = iconUrlMap[link.platform]
           const title = link.label || link.platform.charAt(0).toUpperCase() + link.platform.slice(1)
@@ -66,32 +66,32 @@ export function SocialLinksSection({ profile }: SocialLinksSectionProps) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link flex cursor-pointer items-center gap-4 p-4 pr-2 transition-colors hover:bg-accent rounded-lg"
+              className="group/link flex cursor-pointer items-center gap-3 rounded-lg p-3 transition-colors hover:bg-accent"
             >
-              <div className="relative size-12 shrink-0">
+              <div className="relative size-10 shrink-0">
                 {iconUrl ? (
                   <Image
-                    className="rounded-xl select-none"
+                    className="rounded-lg select-none"
                     src={iconUrl}
                     alt={title}
-                    width={48}
-                    height={48}
+                    width={40}
+                    height={40}
                     quality={100}
                     unoptimized
                   />
                 ) : (
-                  <div className="flex size-12 items-center justify-center rounded-xl bg-muted text-foreground text-lg font-medium">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-muted text-foreground text-base font-medium">
                     {title.charAt(0)}
                   </div>
                 )}
-                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-black/10 ring-inset dark:ring-white/15" />
+                <div className="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-black/10 ring-inset dark:ring-white/15" />
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="flex items-center font-medium underline-offset-4 group-hover/link:underline">
+                <h3 className="text-sm font-medium underline-offset-4 group-hover/link:underline">
                   {title}
                 </h3>
-                <p className="text-sm text-muted-foreground truncate">{description}</p>
+                <p className="text-xs text-muted-foreground truncate">{description}</p>
               </div>
 
               <ArrowUpRightIcon className="size-4 text-muted-foreground shrink-0" />
