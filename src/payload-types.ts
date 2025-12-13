@@ -73,6 +73,7 @@ export interface Config {
     experiences: Experience;
     skills: Skill;
     gallery: Gallery;
+    blogs: Blog;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +88,7 @@ export interface Config {
     experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
+    blogs: BlogsSelect<false> | BlogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -251,12 +253,10 @@ export interface Project {
    * Cover image for project card
    */
   image?: (string | null) | Media;
-  tags?:
-    | {
-        tag: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Technologies/skills used in this project
+   */
+  technologies?: (string | Skill)[] | null;
   /**
    * Live demo URL
    */
@@ -305,6 +305,33 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills".
+ */
+export interface Skill {
+  id: string;
+  name: string;
+  /**
+   * Short description (e.g., "Frontend Framework", "Database")
+   */
+  description?: string | null;
+  /**
+   * Skill icon/logo (40x40px recommended)
+   */
+  image?: (string | null) | Media;
+  category: 'frontend' | 'backend' | 'tools' | 'other';
+  /**
+   * Official website URL
+   */
+  url?: string | null;
+  /**
+   * Sort order within category (higher = first)
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experiences".
  */
 export interface Experience {
@@ -315,61 +342,56 @@ export interface Experience {
    */
   logo?: (string | null) | Media;
   /**
-   * Job title
-   */
-  title: string;
-  startDate: string;
-  /**
-   * Leave empty for current position
-   */
-  endDate?: string | null;
-  /**
-   * Role description and achievements
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
    * Company website URL
    */
   website?: string | null;
   /**
+   * Mark as current employer
+   */
+  isCurrentEmployer?: boolean | null;
+  /**
+   * Positions held at this company
+   */
+  positions: {
+    /**
+     * Job title
+     */
+    title: string;
+    /**
+     * Type of employment
+     */
+    employmentType?: ('full-time' | 'part-time' | 'contract' | 'freelance' | 'internship') | null;
+    startDate: string;
+    /**
+     * Leave empty for current position
+     */
+    endDate?: string | null;
+    /**
+     * Role description and achievements
+     */
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Skills/technologies used in this role
+     */
+    skills?: (string | Skill)[] | null;
+    id?: string | null;
+  }[];
+  /**
    * Sort order (higher = first)
-   */
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "skills".
- */
-export interface Skill {
-  id: string;
-  name: string;
-  /**
-   * Icon identifier (lucide icon name or devicon class)
-   */
-  icon?: string | null;
-  category: 'frontend' | 'backend' | 'tools' | 'other';
-  /**
-   * Official website URL
-   */
-  url?: string | null;
-  /**
-   * Sort order within category (higher = first)
    */
   order?: number | null;
   updatedAt: string;
@@ -405,6 +427,56 @@ export interface Gallery {
   order?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs".
+ */
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  /**
+   * Short summary for blog cards and SEO
+   */
+  summary?: string | null;
+  /**
+   * Cover image for blog post
+   */
+  image?: (string | null) | Media;
+  /**
+   * Publication date
+   */
+  publishedAt: string;
+  /**
+   * Full blog post content
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    /**
+     * SEO title (defaults to blog title if empty)
+     */
+    title?: string | null;
+    description?: string | null;
+    image?: (string | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -545,6 +617,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'gallery';
         value: string | Gallery;
+      } | null)
+    | ({
+        relationTo: 'blogs';
+        value: string | Blog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -703,12 +779,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   image?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
+  technologies?: T;
   liveUrl?: T;
   githubUrl?: T;
   featured?: T;
@@ -732,11 +803,19 @@ export interface ProjectsSelect<T extends boolean = true> {
 export interface ExperiencesSelect<T extends boolean = true> {
   company?: T;
   logo?: T;
-  title?: T;
-  startDate?: T;
-  endDate?: T;
-  description?: T;
   website?: T;
+  isCurrentEmployer?: T;
+  positions?:
+    | T
+    | {
+        title?: T;
+        employmentType?: T;
+        startDate?: T;
+        endDate?: T;
+        description?: T;
+        skills?: T;
+        id?: T;
+      };
   order?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -747,7 +826,8 @@ export interface ExperiencesSelect<T extends boolean = true> {
  */
 export interface SkillsSelect<T extends boolean = true> {
   name?: T;
-  icon?: T;
+  description?: T;
+  image?: T;
   category?: T;
   url?: T;
   order?: T;
@@ -766,6 +846,28 @@ export interface GallerySelect<T extends boolean = true> {
   order?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs_select".
+ */
+export interface BlogsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  summary?: T;
+  image?: T;
+  publishedAt?: T;
+  content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -894,7 +996,11 @@ export interface Profile {
    */
   avatar?: (string | null) | Media;
   /**
-   * Write about yourself for the About section
+   * A short description shown in the hero section (2-3 sentences)
+   */
+  tagline?: string | null;
+  /**
+   * Detailed bio for the About page (optional)
    */
   bio?: {
     root: {
@@ -911,6 +1017,15 @@ export interface Profile {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Languages you speak
+   */
+  languages?:
+    | {
+        language: string;
+        id?: string | null;
+      }[]
+    | null;
   email: string;
   /**
    * Include country code (e.g., +91 12345 67890)
@@ -1007,7 +1122,14 @@ export interface ProfileSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   avatar?: T;
+  tagline?: T;
   bio?: T;
+  languages?:
+    | T
+    | {
+        language?: T;
+        id?: T;
+      };
   email?: T;
   phone?: T;
   location?: T;
@@ -1040,10 +1162,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'projects';
-      value: string | Project;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
+        } | null)
+      | ({
+          relationTo: 'blogs';
+          value: string | Blog;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };
