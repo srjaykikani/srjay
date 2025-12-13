@@ -53,7 +53,7 @@ export function BlogCard({ blog, featured = false, className }: BlogCardProps) {
         <p className="text-xs text-muted-foreground">{formatDate(blog.publishedAt)}</p>
         <h3
           className={cn(
-            'font-semibold text-foreground transition-colors group-hover:text-primary',
+            'font-semibold text-foreground transition-colors group-hover:text-brand',
             featured ? 'text-2xl' : 'text-lg',
           )}
         >

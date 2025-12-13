@@ -64,7 +64,7 @@ function ProjectItem({ project, defaultOpen = false }: ProjectItemProps) {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex size-6 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex size-6 items-center justify-center text-muted-foreground hover:text-brand transition-colors"
                     onClick={(e) => e.stopPropagation()}
                     aria-label="View live site"
                   >
@@ -76,7 +76,7 @@ function ProjectItem({ project, defaultOpen = false }: ProjectItemProps) {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex size-6 items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex size-6 items-center justify-center text-muted-foreground hover:text-brand transition-colors"
                     onClick={(e) => e.stopPropagation()}
                     aria-label="View source code"
                   >
@@ -152,7 +152,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           <Button
             variant="link"
             size="sm"
-            className="w-fit text-muted-foreground hover:text-foreground"
+            className="w-fit text-muted-foreground hover:text-brand"
             onClick={() => setShowAll(!showAll)}
           >
             {showAll ? 'Show Less' : `Show ${projects.length - INITIAL_SHOW} More`}

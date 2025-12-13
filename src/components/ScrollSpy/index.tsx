@@ -68,7 +68,7 @@ export function ScrollSpy({ sections, className }: ScrollSpyProps) {
           className={cn(
             'group flex items-center gap-2 text-left text-base transition-colors duration-200 cursor-pointer',
             activeSection === id
-              ? 'text-foreground'
+              ? 'text-brand'
               : 'text-muted-foreground/50 hover:text-muted-foreground',
           )}
         >
@@ -76,7 +76,7 @@ export function ScrollSpy({ sections, className }: ScrollSpyProps) {
             className={cn(
               'h-px transition-all duration-200',
               activeSection === id
-                ? 'w-8 bg-foreground'
+                ? 'w-8 bg-brand'
                 : 'w-4 bg-muted-foreground/50 group-hover:w-6 group-hover:bg-muted-foreground',
             )}
           />

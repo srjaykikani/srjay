@@ -22,7 +22,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             {...link}
             appearance="link"
-            className={isActive ? 'text-foreground font-medium' : 'text-muted-foreground'}
+            className={isActive ? 'text-brand font-medium' : 'text-muted-foreground hover:text-foreground'}
           />
         )
       })}

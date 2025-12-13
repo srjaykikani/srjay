@@ -99,7 +99,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
             'group flex items-center gap-2 text-left text-sm transition-colors duration-200 cursor-pointer',
             level === 3 && 'pl-4',
             activeId === id
-              ? 'text-foreground'
+              ? 'text-brand'
               : 'text-muted-foreground/60 hover:text-muted-foreground',
           )}
         >
@@ -107,7 +107,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
             className={cn(
               'h-px transition-all duration-200',
               activeId === id
-                ? 'w-3 bg-foreground'
+                ? 'w-3 bg-brand'
                 : 'w-1.5 bg-muted-foreground/40 group-hover:w-2 group-hover:bg-muted-foreground',
             )}
           />

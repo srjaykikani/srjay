@@ -12,7 +12,7 @@ export const Logo = (props: Props) => {
   return (
     <span
       className={cn(
-        'font-mono text-lg font-semibold tracking-tight select-none',
+        'font-mono text-lg font-semibold tracking-tight select-none text-brand',
         className,
       )}
     >
