@@ -65,10 +65,8 @@ export function SectionLayout({
   className?: string
 } & React.ComponentProps<'section'>) {
   return (
-    <section className={cn('flex flex-col md:flex-row gap-4 md:gap-8 py-6', className)} {...props}>
-      <div className="md:w-48 shrink-0">
-        <h2 className="text-lg md:text-xl font-medium text-muted-foreground">{title}</h2>
-      </div>
+    <section className={cn('flex flex-col gap-4 py-6', className)} {...props}>
+      <h2 className="text-xl font-bold text-foreground tracking-tight">{title}</h2>
       <div className="flex-1 min-w-0">{children}</div>
     </section>
   )

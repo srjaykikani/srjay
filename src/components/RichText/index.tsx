@@ -42,7 +42,7 @@ export function RichText(props: Props) {
       className={cn(
         {
           'max-w-none': !enableGutter,
-          'mx-auto prose prose-sm md:prose-base dark:prose-invert': enableProse,
+          'mx-auto prose prose-sm dark:prose-invert prose-p:text-sm prose-p:leading-relaxed prose-p:text-muted-foreground': enableProse,
         },
         className,
       )}

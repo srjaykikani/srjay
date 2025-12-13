@@ -27,7 +27,35 @@ export async function Footer() {
 
         {/* Attribution text */}
         <div className="text-center space-y-2 text-sm text-muted-foreground/60">
-          <p>Built with Next.js, Payload CMS & Tailwind CSS</p>
+          <p>
+            Built with{' '}
+            <a
+              href="https://nextjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              Next.js
+            </a>
+            ,{' '}
+            <a
+              href="https://payloadcms.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              Payload CMS
+            </a>{' '}
+            &{' '}
+            <a
+              href="https://tailwindcss.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              Tailwind CSS
+            </a>
+          </p>
         </div>
       </div>
     </footer>
