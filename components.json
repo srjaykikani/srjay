@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "example/braydoncoyer.dev/app/globals.css",
+    "css": "src/app/(frontend)/styles.css",
     "baseColor": "zinc",
     "cssVariables": true,
     "prefix": ""
