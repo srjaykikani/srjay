@@ -21,7 +21,9 @@ import {
   type HTMLAttributes,
   type ReactNode,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
 } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -74,12 +76,18 @@ const DEFAULT_LABELS: Labels = {
   },
 }
 
+// GitHub-style green theme colors (light/dark mode)
 const THEME = cn(
-  'data-[level="0"]:fill-muted-foreground/5',
-  'data-[level="1"]:fill-muted-foreground/20',
-  'data-[level="2"]:fill-muted-foreground/40',
-  'data-[level="3"]:fill-muted-foreground/60',
-  'data-[level="4"]:fill-muted-foreground/80',
+  // Level 0: empty/background
+  'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',
+  // Level 1: light green
+  'data-[level="1"]:fill-[#9be9a8] dark:data-[level="1"]:fill-[#0e4429]',
+  // Level 2: medium green
+  'data-[level="2"]:fill-[#40c463] dark:data-[level="2"]:fill-[#006d32]',
+  // Level 3: darker green
+  'data-[level="3"]:fill-[#30a14e] dark:data-[level="3"]:fill-[#26a641]',
+  // Level 4: darkest green (most contributions)
+  'data-[level="4"]:fill-[#216e39] dark:data-[level="4"]:fill-[#39d353]',
 )
 
 type ContributionGraphContextType = {
@@ -333,6 +341,7 @@ export const ContributionGraphBlock = ({
 
 export type ContributionGraphCalendarProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
   hideMonthLabels?: boolean
+  scrollToEnd?: boolean
   className?: string
   children: (props: { activity: Activity; dayIndex: number; weekIndex: number }) => ReactNode
 }
@@ -340,19 +349,32 @@ export type ContributionGraphCalendarProps = Omit<HTMLAttributes<HTMLDivElement>
 export const ContributionGraphCalendar = ({
   title = 'Contribution Graph',
   hideMonthLabels = false,
+  scrollToEnd = true,
   className,
   children,
   ...props
 }: ContributionGraphCalendarProps) => {
   const { weeks, width, height, blockSize, blockMargin, labels } = useContributionGraph()
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const monthLabels = useMemo(
     () => getMonthLabels(weeks, labels.months),
     [weeks, labels.months],
   )
 
+  // Scroll to end (most recent contributions) on mount
+  useEffect(() => {
+    if (scrollToEnd && scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth
+    }
+  }, [scrollToEnd])
+
   return (
-    <div className={cn('max-w-full overflow-x-auto overflow-y-hidden', className)} {...props}>
+    <div
+      ref={scrollRef}
+      className={cn('max-w-full overflow-x-auto overflow-y-hidden', className)}
+      {...props}
+    >
       <svg
         className="block overflow-visible"
         height={height}
