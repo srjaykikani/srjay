@@ -16,6 +16,14 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'showOnMobile',
+          type: 'checkbox',
+          defaultValue: true,
+          admin: {
+            description: 'Show this navigation item on mobile devices',
+          },
+        },
       ],
       maxRows: 6,
       admin: {

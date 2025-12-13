@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { cn } from '@/lib/utils'
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
@@ -13,7 +14,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
 
   return (
     <nav className="flex gap-6 items-center">
-      {navItems.map(({ link }, i) => {
+      {navItems.map(({ link, showOnMobile }, i) => {
         const href = link.url || ''
         const isActive = pathname === href || (href !== '/' && pathname.startsWith(href))
 
@@ -22,7 +23,10 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={i}
             {...link}
             appearance="link"
-            className={isActive ? 'text-brand font-medium' : 'text-muted-foreground hover:text-foreground'}
+            className={cn(
+              isActive ? 'text-brand font-medium' : 'text-muted-foreground hover:text-foreground',
+              showOnMobile === false && 'hidden md:block',
+            )}
           />
         )
       })}

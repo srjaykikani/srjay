@@ -954,6 +954,10 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Show this navigation item on mobile devices
+         */
+        showOnMobile?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -1086,6 +1090,7 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        showOnMobile?: T;
         id?: T;
       };
   updatedAt?: T;
