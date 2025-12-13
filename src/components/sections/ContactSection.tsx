@@ -1,7 +1,6 @@
-import { Mail, Phone } from 'lucide-react'
+import { Mail, Phone, ArrowUpRight } from 'lucide-react'
 
 import { SectionLayout } from '@/components/Panel'
-import { Button } from '@/components/ui/button'
 import type { Profile } from '@/payload-types'
 
 interface ContactSectionProps {
@@ -13,32 +12,41 @@ export function ContactSection({ profile }: ContactSectionProps) {
 
   return (
     <SectionLayout title="Contact" className="scroll-mt-12" id="contact">
-      <div className="space-y-3">
-        <p className="text-sm text-muted-foreground text-balance">
-          Interested in working together? Feel free to reach out.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {profile.email && (
-            <Button
-              variant="outline"
-              size="sm"
-              render={<a href={`mailto:${profile.email}`} />}
-            >
+      <div className="flex flex-col gap-2">
+        {profile.email && (
+          <a
+            href={`mailto:${profile.email}`}
+            className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-accent"
+          >
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
               <Mail className="size-4" />
-              {profile.email}
-            </Button>
-          )}
-          {profile.phone && (
-            <Button
-              variant="outline"
-              size="sm"
-              render={<a href={`tel:${profile.phone.replace(/\s/g, '')}`} />}
-            >
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground group-hover:underline underline-offset-4">
+                Email
+              </p>
+              <p className="text-xs text-muted-foreground truncate">{profile.email}</p>
+            </div>
+            <ArrowUpRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          </a>
+        )}
+        {profile.phone && (
+          <a
+            href={`tel:${profile.phone.replace(/\s/g, '')}`}
+            className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-accent"
+          >
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
               <Phone className="size-4" />
-              {profile.phone}
-            </Button>
-          )}
-        </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground group-hover:underline underline-offset-4">
+                Phone
+              </p>
+              <p className="text-xs text-muted-foreground truncate">{profile.phone}</p>
+            </div>
+            <ArrowUpRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          </a>
+        )}
       </div>
     </SectionLayout>
   )
