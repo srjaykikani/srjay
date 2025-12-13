@@ -47,12 +47,12 @@
 :root {
   --background: var(--color-white);
   --foreground: var(--color-zinc-900);
-  /* Brand accent color (blue) - light mode */
-  --brand: #2563eb;
+  /* Brand accent color (red) - light mode */
+  --brand: #db0042;
   --brand-foreground: #ffffff;
-  --brand-muted: #3b82f6;
-  --brand-alpha-weak: rgba(37, 99, 235, 0.1);
-  --brand-alpha-medium: rgba(37, 99, 235, 0.2);
+  --brand-muted: #e6335f;
+  --brand-alpha-weak: rgba(219, 0, 66, 0.1);
+  --brand-alpha-medium: rgba(219, 0, 66, 0.2);
   /* GitHub contribution graph colors (light mode) */
   --github-level-0: #ebedf0;
   --github-level-1: #9be9a8;
@@ -87,12 +87,12 @@
 [data-theme='dark'] {
   --background: var(--color-zinc-950);
   --foreground: var(--color-zinc-100);
-  /* Brand accent color (blue) - dark mode */
-  --brand: #3b82f6;
+  /* Brand accent color (red) - dark mode */
+  --brand: #e6335f;
   --brand-foreground: #ffffff;
-  --brand-muted: #60a5fa;
-  --brand-alpha-weak: rgba(59, 130, 246, 0.15);
-  --brand-alpha-medium: rgba(59, 130, 246, 0.25);
+  --brand-muted: #f05c7f;
+  --brand-alpha-weak: rgba(230, 51, 95, 0.15);
+  --brand-alpha-medium: rgba(230, 51, 95, 0.25);
   /* GitHub contribution graph colors (dark mode) */
   --github-level-0: #161b22;
   --github-level-1: #0e4429;
