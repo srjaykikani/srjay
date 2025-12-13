@@ -12,12 +12,12 @@ export async function Footer() {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer className="mt-auto px-4 py-8 md:py-12">
+    <footer className="mt-auto px-4 sm:px-6 py-10 md:py-12">
       <div className="mx-auto flex flex-col items-center gap-6 max-w-3xl">
         {/* Links row */}
         <div className="flex items-center gap-6 text-sm font-medium text-muted-foreground">
-          <Link href="/" className="flex items-center hover:text-foreground transition-colors">
-            <Logo className="text-sm" />
+          <Link href="/" className="flex items-center transition-colors">
+            <Logo className="text-sm hover:opacity-80" />
           </Link>
 
           {navItems.map(({ link }, i) => (

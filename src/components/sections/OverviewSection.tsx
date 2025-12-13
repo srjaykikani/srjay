@@ -129,7 +129,7 @@ function CurrentLocalTimeItem({ timeZone }: { timeZone: string }) {
 
 export function OverviewSection({ profile }: OverviewSectionProps) {
   return (
-    <SectionLayout title="Overview" className="scroll-mt-12 py-6" id="overview">
+    <SectionLayout title="Overview" className="scroll-mt-12" id="overview">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {profile.title && (
           <IntroItem>

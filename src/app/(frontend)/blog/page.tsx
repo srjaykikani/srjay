@@ -28,7 +28,7 @@ export default async function BlogPage() {
   return (
     <main className="max-w-screen overflow-x-hidden px-4 sm:px-6 py-4">
       <div className="mx-auto max-w-3xl py-12">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground mb-12">Blog</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground mb-10">Blog</h1>
 
         {featuredBlog && (
           <div className="mb-12">

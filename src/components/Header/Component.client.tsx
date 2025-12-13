@@ -15,8 +15,8 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 px-8 md:px-16 lg:px-24">
-      <div className="flex h-14 items-center">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 px-4 sm:px-6">
+      <div className="mx-auto max-w-3xl w-full flex h-14 items-center">
         {/* Left: Logo/Name */}
         <Link href="/" aria-label="Home" className="shrink-0">
           <Logo />
