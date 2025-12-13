@@ -1,6 +1,5 @@
 'use client'
 import { Github } from 'lucide-react'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -23,21 +22,9 @@ const sectionLinks = [
 ]
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  const [theme, setTheme] = useState<string | null>(null)
   const [affix, setAffix] = useState(false)
-  const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const isHomePage = pathname === '/'
-
-  useEffect(() => {
-    setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
-
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +39,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     <header
       data-affix={affix}
       className="sticky top-0 z-50 w-full bg-background px-8 md:px-16 lg:px-24 pt-2 transition-shadow duration-300"
-      {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="flex h-12 items-center">
         {/* Left: Logo/Name */}
