@@ -26,37 +26,24 @@ export const Profile: GlobalConfig = {
               type: 'text',
               required: true,
               admin: {
-                description: 'Your professional title or tagline',
+                description: 'Your professional title',
               },
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  name: 'avatar',
-                  label: 'Profile Photo',
-                  type: 'upload',
-                  relationTo: 'media',
-                  admin: {
-                    description: 'Main profile photo',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'tagline',
-              label: 'Short Bio / Tagline',
-              type: 'textarea',
+              name: 'avatar',
+              label: 'Profile Photo',
+              type: 'upload',
+              relationTo: 'media',
               admin: {
-                description: 'A short description shown in the hero section (2-3 sentences)',
+                description: 'Main profile photo',
               },
             },
             {
               name: 'bio',
-              label: 'Full About Me',
+              label: 'About Me',
               type: 'richText',
               admin: {
-                description: 'Detailed bio for the About page (optional)',
+                description: 'Bio shown in the Overview section',
               },
             },
             {
@@ -153,8 +140,6 @@ export const Profile: GlobalConfig = {
                         { label: 'Twitter/X', value: 'twitter' },
                         { label: 'Instagram', value: 'instagram' },
                         { label: 'LinkedIn', value: 'linkedin' },
-                        { label: 'YouTube', value: 'youtube' },
-                        { label: 'Email', value: 'email' },
                       ],
                     },
                     {
@@ -184,30 +169,6 @@ export const Profile: GlobalConfig = {
               type: 'text',
               admin: {
                 description: 'Link to your resume/CV PDF',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Gallery',
-          fields: [
-            {
-              name: 'photos',
-              label: 'Hero Gallery Photos',
-              type: 'array',
-              maxRows: 5,
-              fields: [
-                {
-                  name: 'image',
-                  label: 'Photo',
-                  type: 'upload',
-                  relationTo: 'media',
-                  required: true,
-                },
-              ],
-              admin: {
-                description: 'Add 3-5 images for the hero gallery',
-                initCollapsed: false,
               },
             },
           ],

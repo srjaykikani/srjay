@@ -2,13 +2,49 @@ import type { Payload, RequiredDataFromCollectionSlug } from 'payload'
 
 import type { MediaMap } from './media'
 
+// Rich text helpers
+function text(content: string, format: 0 | 1 | 2 = 0) {
+  return {
+    type: 'text' as const,
+    detail: 0,
+    format,
+    mode: 'normal' as const,
+    style: '',
+    text: content,
+    version: 1 as const,
+  }
+}
+
+function paragraph(...children: ReturnType<typeof text>[]) {
+  return {
+    type: 'paragraph' as const,
+    children,
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    textFormat: 0,
+    version: 1 as const,
+  }
+}
+
+function richText(...nodes: ReturnType<typeof paragraph>[]) {
+  return {
+    root: {
+      type: 'root' as const,
+      children: nodes,
+      direction: 'ltr' as const,
+      format: '' as const,
+      indent: 0,
+      version: 1 as const,
+    },
+  }
+}
+
 type ProfileData = {
   name: string
   title: string
-  tagline?: string
   bio: RequiredDataFromCollectionSlug<'projects'>['content']
   avatar?: string
-  photos?: { image: string }[]
   email: string
   phone?: string
   location?: string
@@ -16,7 +52,7 @@ type ProfileData = {
   github?: string
   languages?: { language: string }[]
   socialLinks?: {
-    platform: 'github' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'email'
+    platform: 'github' | 'twitter' | 'instagram' | 'linkedin'
     url: string
     label?: string
   }[]
@@ -27,93 +63,32 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
   return {
     // Basic Info
     name: "Hey, I'm Jay!",
-    title: 'Product Designer & Full Stack Developer',
-    tagline:
-      "I'm a product-minded designer and developer who builds digital experiences that solve real problems. I focus on the intersection of design, technology, and user needs.",
+    title: 'Software Developer',
 
     // Languages
-    languages: [
-      { language: 'English' },
-      { language: 'Hindi' },
-      { language: 'Gujarati' },
-      { language: 'Learning German' },
-    ],
+    languages: [{ language: 'English' }, { language: 'Hindi' }, { language: 'Gujarati' }],
 
     // Bio with rich formatting
-    bio: {
-      root: {
-        type: 'root',
-        children: [
-          {
-            type: 'paragraph',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: "I'm a product-minded designer and developer who builds digital experiences that solve real problems. I focus on the intersection of design, technology, and user needs—creating products that are both beautiful and functional.",
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            textFormat: 0,
-            version: 1,
-          },
-          {
-            type: 'paragraph',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: 'With 5+ years of experience, I specialize in React, Next.js, and TypeScript for frontend development, while being comfortable with Node.js, PostgreSQL, and AWS on the backend. I believe in writing clean, maintainable code and creating intuitive user interfaces.',
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            textFormat: 0,
-            version: 1,
-          },
-          {
-            type: 'paragraph',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: 'Currently building tools for creators and businesses, with a passion for clean interfaces, thoughtful interactions, and systems that scale. When not designing, you can find me exploring new technologies, contributing to open source, or mentoring aspiring developers.',
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            textFormat: 0,
-            version: 1,
-          },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        version: 1,
-      },
-    },
+    bio: richText(
+      paragraph(
+        text(
+          'I ship fast and keep things simple—so what I build stays clear, reliable, and easy to run as it grows.',
+        ),
+      ),
+      paragraph(text("That's the bar: systems people trust, without unnecessary complexity.")),
+      paragraph(
+        text('Since December 2023, '),
+        text('Payload', 1),
+        text(
+          " has been my go-to CMS; it's a core part of how I build flexible, production-ready platforms.",
+        ),
+      ),
+    ),
 
-    // Media - Testing avatar and photos
+    // Media
     avatar: mediaMap['avatar'],
-    photos: mediaMap['hero'] ? [{ image: mediaMap['hero'] }] : [],
 
-    // Contact Info - Testing all contact fields
+    // Contact Info
     email: 'srjaykikani@gmail.com',
     phone: '+91 81400 59722',
     location: 'Gujarat, India',
@@ -122,7 +97,7 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
     // GitHub - For contribution graph
     github: 'srjaykikani',
 
-    // Social Links - Testing all platform types
+    // Social Links - GitHub, Twitter/X, Instagram, LinkedIn only
     socialLinks: [
       {
         platform: 'github',
@@ -144,19 +119,9 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
         url: 'https://linkedin.com/in/srjaykikani',
         label: 'LinkedIn',
       },
-      {
-        platform: 'youtube',
-        url: 'https://youtube.com/@srjay',
-        label: 'YouTube',
-      },
-      {
-        platform: 'email',
-        url: 'mailto:srjaykikani@gmail.com',
-        label: 'Email Me',
-      },
     ],
 
-    // Resume - Testing resume URL
+    // Resume
     resumeUrl: 'https://srjay.com/resume.pdf',
   }
 }
