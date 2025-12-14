@@ -1031,7 +1031,7 @@ export interface Profile {
     | null;
   email: string;
   /**
-   * Include country code (e.g., +91 12345 67890)
+   * Include country code
    */
   phone?: string | null;
   /**
@@ -1049,9 +1049,6 @@ export interface Profile {
   socialLinks?:
     | {
         platform: 'github' | 'twitter' | 'instagram' | 'linkedin';
-        /**
-         * Optional custom label
-         */
         label?: string | null;
         url: string;
         id?: string | null;
