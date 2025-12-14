@@ -6,6 +6,10 @@ import { authenticated } from '../access/authenticated'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { CollectionGroups } from '../shared/collection-groups'
 
+// NOTE: Removed slug field because portfolio uses ID / title-based routing, not /projects/:slug.
+// NOTE: Removed githubUrl because most projects are client/private.
+// NOTE: Removed featured because homepage selection is handled by `order` or other UI logic.
+
 export const Projects: CollectionConfig = {
   slug: 'projects',
   access: {
@@ -15,42 +19,18 @@ export const Projects: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'featured', '_status', 'updatedAt'],
+    defaultColumns: ['title', '_status', 'order', 'updatedAt'],
     group: CollectionGroups.Content,
     useAsTitle: 'title',
   },
   defaultPopulate: {
     title: true,
-    slug: true,
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'slug',
-      type: 'text',
-      required: true,
-      unique: true,
-      index: true,
-      admin: {
-        position: 'sidebar',
-      },
-      hooks: {
-        beforeValidate: [
-          ({ value, data }) => {
-            if (!value && data?.title) {
-              return data.title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)/g, '')
-            }
-            return value
-          },
-        ],
-      },
     },
     {
       name: 'description',
@@ -88,16 +68,7 @@ export const Projects: CollectionConfig = {
       name: 'githubUrl',
       type: 'text',
       admin: {
-        description: 'Source code repository URL',
-      },
-    },
-    {
-      name: 'featured',
-      type: 'checkbox',
-      defaultValue: false,
-      admin: {
-        description: 'Show on homepage featured projects section',
-        position: 'sidebar',
+        description: 'Source code repository URL (optional)',
       },
     },
     {
@@ -149,13 +120,13 @@ export const Projects: CollectionConfig = {
       async ({ doc, previousDoc, req: { payload, context } }) => {
         if (!context.disableRevalidate) {
           if (doc._status === 'published') {
-            payload.logger.info(`Revalidating project: ${doc.slug}`)
+            payload.logger.info(`Revalidating project: ${doc.title}`)
             revalidatePath('/')
             revalidateTag('projects')
           }
 
           if (previousDoc?._status === 'published' && doc._status !== 'published') {
-            payload.logger.info(`Revalidating unpublished project: ${previousDoc.slug}`)
+            payload.logger.info(`Revalidating unpublished project: ${previousDoc.title}`)
             revalidatePath('/')
             revalidateTag('projects')
           }
