@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="hidden lg:block w-48 shrink-0" />
 
         {/* Main Content */}
-        <article className="flex-1 max-w-3xl mx-auto">
+        <article className="flex-1 max-w-2xl mx-auto">
           {/* Header */}
           <div className="flex flex-col gap-4 mb-8">
             <Link
