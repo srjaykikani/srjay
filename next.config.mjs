@@ -10,6 +10,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'pub-67613d458ebd4ab190f29fd98fe5673b.r2.dev',
+      },
+      {
+        protocol: 'https',
         hostname: 'assets.chanhdai.com',
       },
       {
