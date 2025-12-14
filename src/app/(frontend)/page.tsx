@@ -34,7 +34,6 @@ export default async function HomePage() {
     }),
     payload.find({
       collection: 'projects',
-      where: { featured: { equals: true } },
       sort: '-order',
       depth: 2,
       limit: 10,
@@ -47,9 +46,10 @@ export default async function HomePage() {
     }),
     payload.find({
       collection: 'skills',
+      where: { showOnStack: { equals: true } },
       sort: '-order',
       depth: 1,
-      limit: 100,
+      limit: 20,
     }),
   ])
 
