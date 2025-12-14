@@ -68,14 +68,14 @@ export async function seed(payload: Payload): Promise<void> {
   // 2. Profile (depends on media)
   await seedProfile(payload, mediaMap)
 
-  // 3. Projects (depends on media)
-  await seedProjects(payload, mediaMap)
-
-  // 4. Experiences (no media dependencies in current seed)
-  await seedExperiences(payload)
-
-  // 5. Skills (no dependencies)
+  // 3. Skills (no dependencies, but needed by projects and experiences)
   await seedSkills(payload)
+
+  // 4. Projects (depends on skills for technology lookup)
+  await seedProjects(payload)
+
+  // 5. Experiences (depends on skills for relationship lookup)
+  await seedExperiences(payload)
 
   // 6. Header
   await seedHeader(payload)
