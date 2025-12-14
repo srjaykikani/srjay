@@ -995,7 +995,7 @@ export interface Profile {
   id: string;
   name: string;
   /**
-   * Your professional title or tagline
+   * Your professional title
    */
   title: string;
   /**
@@ -1003,11 +1003,7 @@ export interface Profile {
    */
   avatar?: (string | null) | Media;
   /**
-   * A short description shown in the hero section (2-3 sentences)
-   */
-  tagline?: string | null;
-  /**
-   * Detailed bio for the About page (optional)
+   * Bio shown in the Overview section
    */
   bio?: {
     root: {
@@ -1052,7 +1048,7 @@ export interface Profile {
   github?: string | null;
   socialLinks?:
     | {
-        platform: 'github' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'email';
+        platform: 'github' | 'twitter' | 'instagram' | 'linkedin';
         /**
          * Optional custom label
          */
@@ -1065,15 +1061,6 @@ export interface Profile {
    * Link to your resume/CV PDF
    */
   resumeUrl?: string | null;
-  /**
-   * Add 3-5 images for the hero gallery
-   */
-  photos?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1130,7 +1117,6 @@ export interface ProfileSelect<T extends boolean = true> {
   name?: T;
   title?: T;
   avatar?: T;
-  tagline?: T;
   bio?: T;
   languages?:
     | T
@@ -1152,12 +1138,6 @@ export interface ProfileSelect<T extends boolean = true> {
         id?: T;
       };
   resumeUrl?: T;
-  photos?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
