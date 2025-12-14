@@ -1,32 +1,113 @@
 import type { Payload, RequiredDataFromCollectionSlug } from 'payload'
 
 /**
- * Helper to create RichText content
+ * Payload Lexical Rich Text helper - matches the exact structure from example/website
  */
-function createRichText(text: string) {
+
+// Text node - matches reference pattern exactly
+function text(content: string, format: 0 | 1 | 2 = 0) {
+  return {
+    type: 'text' as const,
+    detail: 0,
+    format, // 0 = normal, 1 = bold, 2 = italic
+    mode: 'normal' as const,
+    style: '',
+    text: content,
+    version: 1 as const,
+  }
+}
+
+// Link node - matches reference pattern from example/website
+type LinkNode = {
+  type: 'link'
+  children: ReturnType<typeof text>[]
+  direction: 'ltr'
+  fields: {
+    linkType: 'custom'
+    newTab: boolean
+    url: string
+  }
+  format: ''
+  indent: 0
+  version: 3
+}
+
+function link(label: string, url: string, newTab = true): LinkNode {
+  return {
+    type: 'link',
+    children: [text(label)],
+    direction: 'ltr',
+    fields: {
+      linkType: 'custom',
+      newTab,
+      url,
+    },
+    format: '',
+    indent: 0,
+    version: 3,
+  }
+}
+
+type InlineNode = ReturnType<typeof text> | LinkNode
+
+// Paragraph node
+function paragraph(...children: InlineNode[]) {
+  return {
+    type: 'paragraph' as const,
+    children,
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    textFormat: 0,
+    version: 1 as const,
+  }
+}
+
+// List item node - supports mixed content (text + links)
+function listitem(children: InlineNode[], value: number) {
+  return {
+    type: 'listitem' as const,
+    children,
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    value,
+    version: 1 as const,
+  }
+}
+
+// Simple list item from string
+function listitemText(content: string, value: number) {
+  return listitem([text(content)], value)
+}
+
+// Bullet list node - accepts either strings or pre-built listitem nodes
+function bulletList(items: (string | ReturnType<typeof listitem>)[]) {
+  return {
+    type: 'list' as const,
+    children: items.map((item, i) =>
+      typeof item === 'string' ? listitemText(item, i + 1) : { ...item, value: i + 1 },
+    ),
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    listType: 'bullet' as const,
+    start: 1,
+    tag: 'ul' as const,
+    version: 1 as const,
+  }
+}
+
+// Root rich text structure
+function richText(...nodes: (ReturnType<typeof paragraph> | ReturnType<typeof bulletList>)[]) {
   return {
     root: {
-      type: 'root',
-      children: [
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'text',
-              text,
-              version: 1,
-            },
-          ],
-          direction: 'ltr' as const,
-          format: '' as const,
-          indent: 0,
-          version: 1,
-        },
-      ],
+      type: 'root' as const,
+      children: nodes,
       direction: 'ltr' as const,
       format: '' as const,
       indent: 0,
-      version: 1,
+      version: 1 as const,
     },
   }
 }
@@ -37,235 +118,285 @@ type ExperienceSeed = Omit<RequiredDataFromCollectionSlug<'experiences'>, 'posit
     employmentType?: 'full-time' | 'part-time' | 'contract' | 'freelance' | 'internship'
     startDate: string
     endDate?: string
-    description?: ReturnType<typeof createRichText>
-    skillNames?: string[] // Skill names to look up
+    description?: ReturnType<typeof richText>
+    skillNames?: string[]
   }>
 }
 
 const experiences: ExperienceSeed[] = [
-  // Test Case 1: Current employer with multiple positions (career growth at same company)
   {
-    company: 'TechCorp Inc.',
-    website: 'https://techcorp.example.com',
+    company: 'Challenge Rate',
+    website: 'https://www.challengerate.com/',
+    location: 'GJ — India',
     isCurrentEmployer: true,
     positions: [
       {
-        title: 'Senior Software Engineer',
+        title: 'Co-Founder',
         employmentType: 'full-time',
-        startDate: '2023-06-01',
-        endDate: undefined, // Current position
-        description: createRichText(
-          'Leading the frontend architecture team. Responsible for design system development, code reviews, and mentoring junior developers. Implemented micro-frontend architecture that improved deployment velocity by 40%.',
+        startDate: '2025-05-01',
+        endDate: undefined,
+        description: richText(
+          paragraph(
+            text('Developed a '),
+            text('multi-tenant B2B wholesale marketplace', 1),
+            text(
+              ' for Indian manufacturers and buyers with a focus on type-safety, performance, and scalability.',
+            ),
+          ),
+          bulletList([
+            'Built tenant isolation per manufacturer with complete data segregation',
+            'Implemented type-safe API layer using tRPC + TanStack Query',
+            'Advanced tables with TanStack Table v8 and URL state via nuqs',
+            'OTP authentication via MSG91 SMS integration',
+            'INR payments: UPI, bank transfer, and COD support',
+            'SEO features: dynamic sitemaps and robots.txt generation',
+            'Robust search and filtering workflows',
+            '47 tests covering unit, E2E, and integration testing',
+            'Production maintenance scripts and internal tools',
+          ]),
+          paragraph(
+            text('Built internal tools: ', 1),
+            text(
+              'bulk WhatsApp manager, lead scraping, and finance tooling. Continuing roadmap work on GST billing and mobile app.',
+            ),
+          ),
         ),
-        skillNames: ['React', 'TypeScript'],
-      },
-      {
-        title: 'Software Engineer',
-        employmentType: 'full-time',
-        startDate: '2021-03-01',
-        endDate: '2023-05-31',
-        description: createRichText(
-          'Built and maintained customer-facing web applications. Led migration from JavaScript to TypeScript. Improved application performance by 60% through code optimization and lazy loading.',
-        ),
-        skillNames: ['React', 'JavaScript'],
-      },
-      {
-        title: 'Junior Software Engineer',
-        employmentType: 'full-time',
-        startDate: '2020-01-15',
-        endDate: '2021-02-28',
-        description: createRichText(
-          'Started as a junior developer working on bug fixes and small features. Quickly ramped up to handle larger projects and received early promotion.',
-        ),
-        skillNames: ['JavaScript', 'Git'],
+        skillNames: [
+          'Next.js',
+          'React',
+          'TypeScript',
+          'Payload CMS',
+          'tRPC',
+          'TanStack Query',
+          'TanStack Table',
+          'nuqs',
+          'MongoDB',
+          'Tailwind CSS',
+          'shadcn/ui',
+          'MSG91',
+          'Cloudflare R2',
+          'Vercel',
+        ],
       },
     ],
     order: 100,
   },
 
-  // Test Case 2: Past employer with single position (full-time)
   {
-    company: 'StartupXYZ',
-    website: 'https://startupxyz.io',
-    isCurrentEmployer: false,
-    positions: [
-      {
-        title: 'Full Stack Developer',
-        employmentType: 'full-time',
-        startDate: '2018-06-01',
-        endDate: '2019-12-31',
-        description: createRichText(
-          'Early employee at a Series A startup. Built the entire frontend from scratch and contributed to backend API development. Helped grow the engineering team from 3 to 12 members.',
-        ),
-        skillNames: ['Node.js', 'PostgreSQL', 'AWS'],
-      },
-    ],
-    order: 90,
-  },
-
-  // Test Case 3: Contract position
-  {
-    company: 'Enterprise Solutions Ltd.',
-    website: 'https://enterprise-solutions.example.com',
-    isCurrentEmployer: false,
-    positions: [
-      {
-        title: 'Frontend Consultant',
-        employmentType: 'contract',
-        startDate: '2019-01-01',
-        endDate: '2019-11-30',
-        description: createRichText(
-          'Contracted to modernize legacy jQuery application to React. Delivered project 2 weeks ahead of schedule. Provided documentation and training for internal team.',
-        ),
-        skillNames: ['React'],
-      },
-    ],
-    order: 85,
-  },
-
-  // Test Case 4: Current freelance/self-employed
-  {
-    company: 'Freelance',
-    website: 'https://srjay.com',
+    company: 'JHB Software',
+    website: 'https://www.upwork.com/freelancers/~01290934f0ff42a832',
+    location: 'Germany',
     isCurrentEmployer: true,
     positions: [
       {
-        title: 'Product Designer & Developer',
+        title: 'Software Developer (Freelancing, Remote)',
         employmentType: 'freelance',
-        startDate: '2020-01-01',
-        endDate: undefined, // Ongoing
-        description: createRichText(
-          'Building digital products for startups and businesses worldwide. Specializing in full-stack development with modern technologies, UI/UX design, and product strategy consulting. Clients include healthcare, education, and e-commerce sectors.',
+        startDate: '2025-05-16',
+        endDate: undefined,
+        description: richText(
+          paragraph(
+            text('Freelance work focused on '),
+            text('Payload CMS and Astro', 1),
+            text(' projects.'),
+          ),
+          bulletList([
+            'Troubleshooting production issues and implementing features',
+            'Keeping CMS and websites stable across deployments',
+            listitem(
+              [
+                text('Contributing to open-source Payload CMS plugins ('),
+                link('payload-plugins', 'https://github.com/jhb-software/payload-plugins'),
+                text(')'),
+              ],
+              3,
+            ),
+          ]),
         ),
-        skillNames: ['Next.js', 'React', 'TypeScript', 'Figma'],
+        skillNames: [
+          'Payload CMS',
+          'Astro',
+          'WP to Payload Migration',
+          'Tailwind CSS',
+          'MongoDB',
+          'Vercel',
+        ],
       },
     ],
     order: 95,
   },
 
-  // Test Case 5: Internship
   {
-    company: 'Big Tech Company',
-    website: 'https://bigtech.example.com',
+    company: 'Beachbox Ventures',
+    website: 'https://hyprrstaging.com/',
+    location: 'Australia',
     isCurrentEmployer: false,
     positions: [
       {
-        title: 'Software Engineering Intern',
-        employmentType: 'internship',
-        startDate: '2017-05-01',
-        endDate: '2017-08-31',
-        description: createRichText(
-          'Summer internship in the Developer Tools team. Built an internal dashboard for monitoring CI/CD pipelines. Received return offer for full-time position.',
+        title: 'Full Stack Developer (Remote)',
+        employmentType: 'part-time',
+        startDate: '2025-03-31',
+        endDate: '2025-05-31',
+        description: richText(
+          paragraph(
+            text('Worked in a '),
+            text('4-person core engineering team', 1),
+            text(' on a multi-tenant event management platform ecosystem.'),
+          ),
+          bulletList([
+            'Web platform development with multi-tenant architecture and data isolation',
+            'Payload CMS collections, access control, and hooks implementation',
+            'Headless APIs for mobile integration',
+          ]),
         ),
-        skillNames: ['Python', 'React'],
+        skillNames: [
+          'Next.js',
+          'React',
+          'Payload CMS',
+          'MongoDB',
+          'AWS S3',
+          'TypeScript',
+          'Tailwind CSS',
+          'Shadcn/UI',
+        ],
+      },
+      {
+        title: 'Mobile Developer (Remote)',
+        employmentType: 'full-time',
+        startDate: '2025-06-01',
+        endDate: '2025-09-04',
+        description: richText(
+          paragraph(
+            text('Shipped '),
+            text('two React Native mobile applications', 1),
+            text(' to App Store and Play Store.'),
+          ),
+          bulletList([
+            'Built ticketing experiences with wallet passes',
+            'QR-based entry flows for event check-in',
+            'Push notifications integration with OneSignal',
+            'Supported production release workflows',
+          ]),
+        ),
+        skillNames: ['React Native', 'Expo', 'React', 'TypeScript', 'OneSignal', 'Tailwind CSS'],
       },
     ],
-    order: 60,
+    order: 90,
   },
 
-  // Test Case 6: Part-time position (student organization) with multiple roles
   {
-    company: 'E-Cell SVNIT',
-    website: 'https://ecellsvnit.in',
+    company: 'Mindbend 2025',
+    website: 'https://mindbend-main.vercel.app/',
+    location: 'Surat, GJ — India',
     isCurrentEmployer: false,
     positions: [
       {
-        title: 'Technical Lead',
+        title: 'Co Head - Sponsorship Team',
         employmentType: 'part-time',
-        startDate: '2022-06-01',
-        endDate: '2023-05-31',
-        description: createRichText(
-          'Led the technical team for the Entrepreneurship Cell. Built and maintained the official website, managed event registration systems, and mentored junior developers. Organized hackathons with 500+ participants.',
+        startDate: '2023-10-01',
+        endDate: '2024-10-01',
+        description: richText(
+          paragraph(
+            text('Started in the '),
+            text('sponsorship committee', 1),
+            text(', coordinating outreach and execution with seniors and peers.'),
+          ),
+          bulletList([
+            'Coordinating sponsor outreach and relationship management',
+            'Contributing to operational planning for fest programs',
+            'Managing partnerships and sponsorship deliverables',
+          ]),
         ),
+        skillNames: ['Team Leadership', 'Communication', 'Negotiation'],
       },
       {
-        title: 'Web Developer',
+        title: 'Manager',
         employmentType: 'part-time',
-        startDate: '2021-06-01',
-        endDate: '2022-05-31',
-        description: createRichText(
-          'Developed and maintained event landing pages. Integrated payment gateways for event registrations. Collaborated with design team on UI/UX improvements.',
+        startDate: '2024-10-01',
+        endDate: '2025-03-01',
+        description: richText(
+          paragraph(
+            text('Managed teams and '),
+            text('cross-functional coordination', 1),
+            text(' for a large techno-managerial fest.'),
+          ),
+          bulletList([
+            'Supporting multi-team execution across event tracks',
+            'Day-to-day operations management',
+            'Resource allocation and timeline coordination',
+          ]),
         ),
-        skillNames: ['React'],
+        skillNames: ['Operations', 'Project Management', 'Team Leadership'],
+      },
+      {
+        title: 'Joint Co-Curricular Affairs Secretary',
+        employmentType: 'part-time',
+        startDate: '2025-03-01',
+        endDate: '2025-06-01',
+        description: richText(
+          paragraph(
+            text('Helped '),
+            text('lead overall fest execution', 1),
+            text(' by coordinating large student teams and multi-activity programming.'),
+          ),
+          bulletList([
+            'Led the Mindbend 2025 website development with juniors',
+            'Contributed across development, design, publicity, and marketing',
+            'Coordinated large student team activities',
+          ]),
+        ),
+        skillNames: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'Payload CMS'],
       },
     ],
     order: 80,
   },
 
-  // Test Case 7: Position with no description and no skills (minimal data)
   {
-    company: 'Quick Gig Co.',
+    company: '10turtle (Par Solution)',
+    website: 'https://10turtle.com/',
+    location: 'GJ — India',
     isCurrentEmployer: false,
     positions: [
       {
-        title: 'Freelance Developer',
-        employmentType: 'freelance',
-        startDate: '2019-03-01',
-        endDate: '2019-04-30',
-        // No description
-        // No skills
-      },
-    ],
-    order: 50,
-  },
-
-  // Test Case 8: Company with no website
-  {
-    company: 'Local Business Solutions',
-    // No website
-    isCurrentEmployer: false,
-    positions: [
-      {
-        title: 'IT Consultant',
-        employmentType: 'contract',
-        startDate: '2018-01-01',
-        endDate: '2018-05-31',
-        description: createRichText(
-          'Provided IT consulting services for small local businesses. Set up websites, email systems, and basic automation.',
+        title: 'Software Developer (Hybrid)',
+        employmentType: 'part-time',
+        startDate: '2024-10-01',
+        endDate: '2025-01-01',
+        description: richText(
+          paragraph(
+            text('Built and maintained '),
+            text('full-stack applications', 1),
+            text(' including a Payload + Next.js platform and Electron-based HRMS desktop app.'),
+          ),
+          bulletList([
+            'PAR Solution platform with type-safe APIs using tRPC',
+            'Electron-based HRMS desktop application',
+            'Analytics dashboards with Chart.js and Recharts',
+            'File storage integration with AWS S3',
+            'Async processing with RabbitMQ',
+            'Security-focused data handling',
+          ]),
         ),
+        skillNames: [
+          'Next.js',
+          'React',
+          'Payload CMS',
+          'tRPC',
+          'MongoDB',
+          'Express.js',
+          'Electron',
+          'TypeScript',
+          'Tailwind CSS',
+          'AWS S3',
+          'RabbitMQ',
+          'Chart.js',
+          'Recharts',
+          'Radix UI',
+          'Zustand',
+          'React Hook Form',
+        ],
       },
     ],
-    order: 55,
-  },
-
-  // Test Case 9: Open Source contributions (ongoing)
-  {
-    company: 'Open Source',
-    website: 'https://github.com/srjaykikani',
-    isCurrentEmployer: true,
-    positions: [
-      {
-        title: 'Contributor',
-        employmentType: 'freelance',
-        startDate: '2018-01-01',
-        endDate: undefined,
-        description: createRichText(
-          'Active contributor to various open source projects. Focus areas include developer tools, React ecosystem, and design systems. Maintainer of 3 npm packages with 10k+ weekly downloads.',
-        ),
-        skillNames: ['React', 'npm'],
-      },
-    ],
-    order: 75,
-  },
-
-  // Test Case 10: Very long company name and many skills
-  {
-    company: 'International Digital Transformation & Innovation Consultancy Group',
-    website: 'https://idticg.example.com',
-    isCurrentEmployer: false,
-    positions: [
-      {
-        title: 'Senior Digital Transformation Specialist & Technical Architect',
-        employmentType: 'full-time',
-        startDate: '2016-01-01',
-        endDate: '2017-12-31',
-        description: createRichText(
-          'Led digital transformation initiatives for Fortune 500 clients. Architected cloud-native solutions and implemented DevOps practices. Managed cross-functional teams across 5 countries.',
-        ),
-        skillNames: ['AWS', 'Kubernetes', 'Docker', 'GraphQL'],
-      },
-    ],
-    order: 65,
+    order: 70,
   },
 ]
 
@@ -307,6 +438,7 @@ export async function seedExperiences(payload: Payload): Promise<void> {
         disableRevalidate: true,
       },
     })
+
     payload.logger.info(`Created experience: ${experience.company}`)
   }
 }

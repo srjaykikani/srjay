@@ -41,6 +41,13 @@ export const Experiences: CollectionConfig = {
       },
     },
     {
+      name: 'location',
+      type: 'text',
+      admin: {
+        description: 'Location (e.g., "GJ — India", "Remote")',
+      },
+    },
+    {
       name: 'isCurrentEmployer',
       type: 'checkbox',
       defaultValue: false,

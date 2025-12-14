@@ -1,7 +1,7 @@
 'use client'
 
 import { format, isValid } from 'date-fns'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -102,19 +102,7 @@ function ExperienceItem({ experience, defaultOpen = false }: ExperienceItemProps
           <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5">
             <div className="flex w-full items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                {experience.website ? (
-                  <a
-                    href={experience.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-foreground underline-offset-4 group-hover/exp:underline"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {experience.company}
-                  </a>
-                ) : (
-                  <span className="text-sm font-medium text-foreground">{experience.company}</span>
-                )}
+                <span className="text-sm font-medium text-foreground">{experience.company}</span>
                 {experience.isCurrentEmployer && (
                   <Badge variant="secondary" size="sm">
                     Current
@@ -122,6 +110,18 @@ function ExperienceItem({ experience, defaultOpen = false }: ExperienceItemProps
                 )}
               </div>
               <div className="flex items-center gap-2">
+                {experience.website && (
+                  <a
+                    href={experience.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex size-6 items-center justify-center text-muted-foreground hover:text-brand transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label="Visit website"
+                  >
+                    <ExternalLink className="size-4" />
+                  </a>
+                )}
                 <span className="hidden whitespace-nowrap text-xs text-muted-foreground sm:block">
                   {start} — {end}
                 </span>
@@ -134,9 +134,14 @@ function ExperienceItem({ experience, defaultOpen = false }: ExperienceItemProps
               </div>
             </div>
 
-            {/* Show first position title when collapsed */}
+            {/* Location */}
+            {experience.location && (
+              <span className="text-xs text-muted-foreground">{experience.location}</span>
+            )}
+
+            {/* Show most recent position title when collapsed */}
             <span className="text-left text-xs text-muted-foreground">
-              {experience.positions[0]?.title}
+              {experience.positions[experience.positions.length - 1]?.title}
               {hasMultiplePositions && !isOpen && ` +${experience.positions.length - 1} more`}
             </span>
             <span className="text-xs text-muted-foreground sm:hidden">
@@ -146,13 +151,13 @@ function ExperienceItem({ experience, defaultOpen = false }: ExperienceItemProps
         </div>
       </CollapsibleTrigger>
 
-      {/* Positions */}
+      {/* Positions - reversed to show most recent first */}
       <CollapsiblePanel>
         <div className="ml-[3.25rem] py-2 pl-3">
-          {experience.positions.map((position, index) => {
+          {[...experience.positions].reverse().map((position, index, reversedArr) => {
             const positionStart = formatDate(position.startDate)
             const positionEnd = position.endDate ? formatDate(position.endDate) : 'Present'
-            const isLast = index === experience.positions.length - 1
+            const isLast = index === reversedArr.length - 1
 
             return (
               <div
