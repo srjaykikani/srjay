@@ -25,6 +25,7 @@ import {
 } from 'lucide-react'
 
 import { SectionLayout } from '@/components/Panel'
+import { RichText } from '@/components/RichText'
 import type { Profile } from '@/payload-types'
 
 const CLOCK_ICONS: Record<number, LucideIcon> = {
@@ -130,16 +131,14 @@ function CurrentLocalTimeItem({ timeZone }: { timeZone: string }) {
 export function OverviewSection({ profile }: OverviewSectionProps) {
   return (
     <SectionLayout title="Overview" className="scroll-mt-12" id="overview">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {profile.title && (
-          <IntroItem>
-            <IntroItemIcon>
-              <Briefcase />
-            </IntroItemIcon>
-            <span className="text-balance">{profile.title}</span>
-          </IntroItem>
-        )}
+      {/* Bio / About Me */}
+      {profile.bio && (
+        <div className="prose prose-sm mb-6">
+          <RichText data={profile.bio} />
+        </div>
+      )}
 
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* Founder @ChallengeRate */}
         <IntroItem>
           <IntroItemIcon>
