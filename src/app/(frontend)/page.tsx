@@ -62,7 +62,7 @@ export default async function HomePage() {
       <HomeScrollSpy sections={SECTIONS} />
 
       <main className="max-w-screen overflow-x-hidden px-4 sm:px-6 py-4">
-        <div className="mx-auto max-w-3xl flex flex-col">
+        <div className="mx-auto max-w-2xl flex flex-col">
           <HeroSection profile={profile} />
           <OverviewSection profile={profile} />
           <SectionLayout title="GitHub" className="scroll-mt-12" id="github">
