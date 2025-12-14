@@ -39,7 +39,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
   const languages = profile.languages || []
 
   return (
-    <section id="hero" className="py-10 md:py-12">
+    <section id="hero" className="py-6">
       <div className="flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left">
         {/* Avatar and Languages Column */}
         <div className="flex flex-col items-center gap-4 shrink-0">
