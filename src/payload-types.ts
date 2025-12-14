@@ -244,7 +244,6 @@ export interface Media {
 export interface Project {
   id: string;
   title: string;
-  slug: string;
   /**
    * Short description for project cards
    */
@@ -262,13 +261,9 @@ export interface Project {
    */
   liveUrl?: string | null;
   /**
-   * Source code repository URL
+   * Source code repository URL (optional)
    */
   githubUrl?: string | null;
-  /**
-   * Show on homepage featured projects section
-   */
-  featured?: boolean | null;
   /**
    * Sort order (higher = first)
    */
@@ -327,6 +322,10 @@ export interface Skill {
    * Sort order within category (higher = first)
    */
   order?: number | null;
+  /**
+   * Show this skill in the "Tech Stack" section on the portfolio. Keep ON only for your core 6–10 skills.
+   */
+  showOnStack?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -345,6 +344,10 @@ export interface Experience {
    * Company website URL
    */
   website?: string | null;
+  /**
+   * Location (e.g., "GJ — India", "Remote")
+   */
+  location?: string | null;
   /**
    * Mark as current employer
    */
@@ -776,13 +779,11 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
   description?: T;
   image?: T;
   technologies?: T;
   liveUrl?: T;
   githubUrl?: T;
-  featured?: T;
   order?: T;
   content?: T;
   meta?:
@@ -804,6 +805,7 @@ export interface ExperiencesSelect<T extends boolean = true> {
   company?: T;
   logo?: T;
   website?: T;
+  location?: T;
   isCurrentEmployer?: T;
   positions?:
     | T
@@ -831,6 +833,7 @@ export interface SkillsSelect<T extends boolean = true> {
   category?: T;
   url?: T;
   order?: T;
+  showOnStack?: T;
   updatedAt?: T;
   createdAt?: T;
 }
