@@ -67,6 +67,16 @@ export const Skills: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'showOnStack',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description:
+          'Show this skill in the "Tech Stack" section on the portfolio. Keep ON only for your core 6–10 skills.',
+        position: 'sidebar',
+      },
+    },
   ],
   hooks: {
     afterChange: [
