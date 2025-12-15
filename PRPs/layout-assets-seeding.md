@@ -17,6 +17,7 @@ This PRP covers three interconnected implementation phases:
 3. **Database Seeding**: Create a complete seeding system following doctor-raj patterns with type-safe seed data for all collections
 
 **Key Deliverables**:
+
 - Screen-line CSS utilities for full-width visual lines
 - Updated header with scroll-based shadow effect
 - Updated footer with screen-line decorations
@@ -30,6 +31,7 @@ This PRP covers three interconnected implementation phases:
 ## 2. Prerequisites
 
 ### 2.1 Already Completed (Phase 1-7 of Original PRP)
+
 - All Payload collections created (Projects, Experiences, Skills, Gallery)
 - Profile global configured
 - tRPC routers implemented
@@ -39,6 +41,7 @@ This PRP covers three interconnected implementation phases:
 - Dependencies installed (react-github-calendar, date-fns)
 
 ### 2.2 External Documentation
+
 - **chanhdai.com source**: `example/chanhdai.com-main/` (layout patterns)
 - **doctor-raj source**: `example/doctor-raj/` (seeding patterns)
 - **Srjay.com-GSAP source**: `example/Srjay.com-GSAP-main/public/` (assets)
@@ -102,12 +105,12 @@ Add these utilities AFTER the existing styles:
 }
 
 /* Header scroll shadow (appears when scrolled) */
-[data-affix="true"] {
+[data-affix='true'] {
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
 }
 
-[data-theme="dark"] [data-affix="true"],
-[data-affix="true"]:where([data-theme="dark"], [data-theme="dark"] *) {
+[data-theme='dark'] [data-affix='true'],
+[data-affix='true']:where([data-theme='dark'], [data-theme='dark'] *) {
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.4);
 }
 ```
@@ -354,26 +357,26 @@ Update the main container:
 **Source**: `example/Srjay.com-GSAP-main/public/`
 **Destination**: `public/`
 
-| Source File | Destination | Action |
-|-------------|-------------|--------|
-| `S R logo.svg` | `public/logo.svg` | Copy |
-| `logosrjay.png` | `public/logo.png` | Copy |
-| `logo.png` | `public/logo-alt.png` | Copy |
-| `favicon.ico` | `public/favicon.ico` | Copy |
-| `favicon.svg` | `public/favicon.svg` | Copy |
-| `favicon-16x16.png` | `public/favicon-16x16.png` | Copy |
-| `favicon-32x32.png` | `public/favicon-32x32.png` | Copy |
-| `apple-touch-icon.png` | `public/apple-touch-icon.png` | Copy |
-| `android-chrome-192x192.png` | `public/android-chrome-192x192.png` | Copy |
-| `android-chrome-512x512.png` | `public/android-chrome-512x512.png` | Copy |
-| `maskable_icon.png` | `public/maskable_icon.png` | Copy |
-| `site.webmanifest` | `public/site.webmanifest` | Copy & update |
-| `img/srjay.png` | `public/seed/srjay.png` | Copy for seeding |
-| `img/challengerate.webp` | `public/seed/challengerate.webp` | Copy for seeding |
-| `img/educave.webp` | `public/seed/educave.webp` | Copy for seeding |
-| `img/ecellsvnit.webp` | `public/seed/ecellsvnit.webp` | Copy for seeding |
-| `img/drvandna.webp` | `public/seed/drvandna.webp` | Copy for seeding |
-| `img/portfolio.webp` | `public/seed/portfolio.webp` | Copy for seeding |
+| Source File                  | Destination                         | Action           |
+| ---------------------------- | ----------------------------------- | ---------------- |
+| `S R logo.svg`               | `public/logo.svg`                   | Copy             |
+| `logosrjay.png`              | `public/logo.png`                   | Copy             |
+| `logo.png`                   | `public/logo-alt.png`               | Copy             |
+| `favicon.ico`                | `public/favicon.ico`                | Copy             |
+| `favicon.svg`                | `public/favicon.svg`                | Copy             |
+| `favicon-16x16.png`          | `public/favicon-16x16.png`          | Copy             |
+| `favicon-32x32.png`          | `public/favicon-32x32.png`          | Copy             |
+| `apple-touch-icon.png`       | `public/apple-touch-icon.png`       | Copy             |
+| `android-chrome-192x192.png` | `public/android-chrome-192x192.png` | Copy             |
+| `android-chrome-512x512.png` | `public/android-chrome-512x512.png` | Copy             |
+| `maskable_icon.png`          | `public/maskable_icon.png`          | Copy             |
+| `site.webmanifest`           | `public/site.webmanifest`           | Copy & update    |
+| `img/srjay.png`              | `public/seed/srjay.png`             | Copy for seeding |
+| `img/challengerate.webp`     | `public/seed/challengerate.webp`    | Copy for seeding |
+| `img/educave.webp`           | `public/seed/educave.webp`          | Copy for seeding |
+| `img/ecellsvnit.webp`        | `public/seed/ecellsvnit.webp`       | Copy for seeding |
+| `img/drvandna.webp`          | `public/seed/drvandna.webp`         | Copy for seeding |
+| `img/portfolio.webp`         | `public/seed/portfolio.webp`        | Copy for seeding |
 
 ### 4.2 Bash Commands for Asset Copy
 
@@ -410,9 +413,9 @@ cp example/Srjay.com-GSAP-main/public/img/portfolio.webp public/seed/portfolio.w
 
 ```json
 {
-  "name": "S R Jay",
+  "name": "S R Jay Kikani",
   "short_name": "srjay",
-  "description": "Portfolio website of S R Jay - Full Stack Developer",
+  "description": "Portfolio website of S R Jay Kikani - Full Stack Developer",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -581,7 +584,7 @@ import path from 'path'
 export type MediaMap = Record<string, string>
 
 const seedImages = [
-  { name: 'srjay-avatar', file: 'srjay.png', alt: 'S R Jay profile photo' },
+  { name: 'srjay-avatar', file: 'srjay.png', alt: 'S R Jay Kikani profile photo' },
   { name: 'challengerate-cover', file: 'challengerate.webp', alt: 'ChallengeRate project cover' },
   { name: 'educave-cover', file: 'educave.webp', alt: 'EduCave project cover' },
   { name: 'ecellsvnit-cover', file: 'ecellsvnit.webp', alt: 'E-Cell SVNIT project cover' },
@@ -606,10 +609,7 @@ function getMimeType(filename: string): string {
   }
 }
 
-export async function seedMedia(
-  payload: Payload,
-  req: PayloadRequest
-): Promise<MediaMap> {
+export async function seedMedia(payload: Payload, req: PayloadRequest): Promise<MediaMap> {
   const mediaMap: MediaMap = {}
 
   for (const { name, file, alt } of seedImages) {
@@ -659,7 +659,7 @@ import type { Profile } from '@/payload-types'
 type ProfileData = Omit<Profile, 'id' | 'createdAt' | 'updatedAt'>
 
 export const profileData = (mediaMap: MediaMap): ProfileData => ({
-  name: 'S R Jay',
+  name: 'S R Jay Kikani',
   title: 'Full Stack Developer & Entrepreneur',
   bio: {
     root: {
@@ -727,9 +727,7 @@ export const profileData = (mediaMap: MediaMap): ProfileData => ({
 import type { RequiredDataFromCollectionSlug } from 'payload'
 import type { MediaMap } from './media'
 
-export const projectsData = (
-  mediaMap: MediaMap
-): RequiredDataFromCollectionSlug<'projects'>[] => [
+export const projectsData = (mediaMap: MediaMap): RequiredDataFromCollectionSlug<'projects'>[] => [
   {
     title: 'ChallengeRate',
     slug: 'challengerate',
@@ -755,12 +753,7 @@ export const projectsData = (
     description:
       'Educational platform providing interactive learning experiences for students with video courses, quizzes, and progress tracking.',
     image: mediaMap['educave-cover'] || undefined,
-    tags: [
-      { tag: 'Next.js' },
-      { tag: 'Payload CMS' },
-      { tag: 'TailwindCSS' },
-      { tag: 'Stripe' },
-    ],
+    tags: [{ tag: 'Next.js' }, { tag: 'Payload CMS' }, { tag: 'TailwindCSS' }, { tag: 'Stripe' }],
     liveUrl: 'https://educave.in',
     githubUrl: 'https://github.com/srjaykikani/educave',
     featured: true,
@@ -773,12 +766,7 @@ export const projectsData = (
     description:
       'Official website for the Entrepreneurship Cell of SVNIT with event management, team showcase, and sponsor integrations.',
     image: mediaMap['ecellsvnit-cover'] || undefined,
-    tags: [
-      { tag: 'React' },
-      { tag: 'Express' },
-      { tag: 'PostgreSQL' },
-      { tag: 'AWS' },
-    ],
+    tags: [{ tag: 'React' }, { tag: 'Express' }, { tag: 'PostgreSQL' }, { tag: 'AWS' }],
     liveUrl: 'https://ecellsvnit.in',
     githubUrl: 'https://github.com/srjaykikani/ecell-svnit',
     featured: true,
@@ -791,12 +779,7 @@ export const projectsData = (
     description:
       'Professional medical practice website with appointment booking, patient portal, and integrated payment system.',
     image: mediaMap['drvandna-cover'] || undefined,
-    tags: [
-      { tag: 'Next.js' },
-      { tag: 'Stripe' },
-      { tag: 'SendGrid' },
-      { tag: 'Vercel' },
-    ],
+    tags: [{ tag: 'Next.js' }, { tag: 'Stripe' }, { tag: 'SendGrid' }, { tag: 'Vercel' }],
     liveUrl: 'https://drvandna.com',
     featured: true,
     order: 70,
@@ -808,12 +791,7 @@ export const projectsData = (
     description:
       'Previous iteration of my personal portfolio showcasing projects and skills with smooth GSAP animations.',
     image: mediaMap['portfolio-cover'] || undefined,
-    tags: [
-      { tag: 'HTML' },
-      { tag: 'CSS' },
-      { tag: 'JavaScript' },
-      { tag: 'GSAP' },
-    ],
+    tags: [{ tag: 'HTML' }, { tag: 'CSS' }, { tag: 'JavaScript' }, { tag: 'GSAP' }],
     githubUrl: 'https://github.com/srjaykikani/portfolio-v1',
     featured: false,
     order: 60,
@@ -950,16 +928,58 @@ export const skillsData = (): RequiredDataFromCollectionSlug<'skills'>[] => [
   // Frontend
   { name: 'React', icon: 'react', category: 'frontend', url: 'https://react.dev', order: 100 },
   { name: 'Next.js', icon: 'nextjs', category: 'frontend', url: 'https://nextjs.org', order: 95 },
-  { name: 'TypeScript', icon: 'typescript', category: 'frontend', url: 'https://typescriptlang.org', order: 90 },
-  { name: 'TailwindCSS', icon: 'tailwindcss', category: 'frontend', url: 'https://tailwindcss.com', order: 85 },
-  { name: 'HTML5', icon: 'html5', category: 'frontend', url: 'https://developer.mozilla.org', order: 80 },
-  { name: 'CSS3', icon: 'css3', category: 'frontend', url: 'https://developer.mozilla.org', order: 75 },
+  {
+    name: 'TypeScript',
+    icon: 'typescript',
+    category: 'frontend',
+    url: 'https://typescriptlang.org',
+    order: 90,
+  },
+  {
+    name: 'TailwindCSS',
+    icon: 'tailwindcss',
+    category: 'frontend',
+    url: 'https://tailwindcss.com',
+    order: 85,
+  },
+  {
+    name: 'HTML5',
+    icon: 'html5',
+    category: 'frontend',
+    url: 'https://developer.mozilla.org',
+    order: 80,
+  },
+  {
+    name: 'CSS3',
+    icon: 'css3',
+    category: 'frontend',
+    url: 'https://developer.mozilla.org',
+    order: 75,
+  },
 
   // Backend
   { name: 'Node.js', icon: 'nodejs', category: 'backend', url: 'https://nodejs.org', order: 100 },
-  { name: 'Express', icon: 'express', category: 'backend', url: 'https://expressjs.com', order: 95 },
-  { name: 'Payload CMS', icon: 'payload', category: 'backend', url: 'https://payloadcms.com', order: 90 },
-  { name: 'PostgreSQL', icon: 'postgresql', category: 'backend', url: 'https://postgresql.org', order: 85 },
+  {
+    name: 'Express',
+    icon: 'express',
+    category: 'backend',
+    url: 'https://expressjs.com',
+    order: 95,
+  },
+  {
+    name: 'Payload CMS',
+    icon: 'payload',
+    category: 'backend',
+    url: 'https://payloadcms.com',
+    order: 90,
+  },
+  {
+    name: 'PostgreSQL',
+    icon: 'postgresql',
+    category: 'backend',
+    url: 'https://postgresql.org',
+    order: 85,
+  },
   { name: 'MongoDB', icon: 'mongodb', category: 'backend', url: 'https://mongodb.com', order: 80 },
   { name: 'Redis', icon: 'redis', category: 'backend', url: 'https://redis.io', order: 75 },
 
@@ -969,7 +989,13 @@ export const skillsData = (): RequiredDataFromCollectionSlug<'skills'>[] => [
   { name: 'AWS', icon: 'aws', category: 'tools', url: 'https://aws.amazon.com', order: 90 },
   { name: 'Vercel', icon: 'vercel', category: 'tools', url: 'https://vercel.com', order: 85 },
   { name: 'Figma', icon: 'figma', category: 'tools', url: 'https://figma.com', order: 80 },
-  { name: 'VS Code', icon: 'vscode', category: 'tools', url: 'https://code.visualstudio.com', order: 75 },
+  {
+    name: 'VS Code',
+    icon: 'vscode',
+    category: 'tools',
+    url: 'https://code.visualstudio.com',
+    order: 75,
+  },
 ]
 ```
 
@@ -1022,7 +1048,7 @@ export async function POST(): Promise<Response> {
         message: 'Error seeding database',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
@@ -1045,24 +1071,31 @@ Add to `package.json` scripts:
 ## 6. Validation Gates
 
 ### 6.1 Type Checking
+
 ```bash
 pnpm check-types
 ```
+
 **Expected**: Zero errors
 
 ### 6.2 Linting
+
 ```bash
 pnpm lint
 ```
+
 **Expected**: Zero errors
 
 ### 6.3 Development Server
+
 ```bash
 pnpm dev
 ```
+
 **Expected**: Server starts on port 3000 without errors
 
 ### 6.4 Layout Verification
+
 1. Navigate to `/`
 2. Verify screen-lines appear at section boundaries
 3. Scroll down and verify header shadow appears
@@ -1070,12 +1103,14 @@ pnpm dev
 5. Test on mobile (375px) - verify layout doesn't break
 
 ### 6.5 Asset Verification
+
 1. Check favicon appears in browser tab
 2. Check logo renders in header
 3. Open `/site.webmanifest` - verify JSON is valid
 4. Test PWA installation (Chrome DevTools > Application > Manifest)
 
 ### 6.6 Seed Verification
+
 ```bash
 # Start dev server first
 pnpm dev
@@ -1083,7 +1118,9 @@ pnpm dev
 # In another terminal, run seed
 curl -X POST http://localhost:3000/api/seed
 ```
+
 **Expected**:
+
 - Response: `{"success":true,"message":"Database seeded successfully"}`
 - Check `/admin` - verify Profile has data
 - Check `/admin/collections/projects` - verify 5 projects exist
@@ -1091,8 +1128,9 @@ curl -X POST http://localhost:3000/api/seed
 - Check `/admin/collections/skills` - verify 18 skills exist
 
 ### 6.7 Homepage Data Verification
+
 1. Navigate to `/`
-2. Verify Profile name "S R Jay" appears in hero
+2. Verify Profile name "S R Jay Kikani" appears in hero
 3. Verify GitHub calendar loads for "srjaykikani"
 4. Verify skills grouped by category
 5. Verify experiences sorted by order
@@ -1103,6 +1141,7 @@ curl -X POST http://localhost:3000/api/seed
 ## 7. Implementation Order (Task Sequence)
 
 ### Phase A: Layout (Tasks 1-5)
+
 1. Add CSS utilities to styles.css
 2. Create Panel component
 3. Update Header with scroll shadow
@@ -1110,11 +1149,13 @@ curl -X POST http://localhost:3000/api/seed
 5. Update homepage main wrapper
 
 ### Phase B: Assets (Tasks 6-8)
+
 6. Run asset copy commands
 7. Update site.webmanifest
 8. Verify favicon/logo rendering
 
 ### Phase C: Seeding (Tasks 9-15)
+
 9. Create `src/endpoints/seed/` directory
 10. Create media.ts helper
 11. Create profile.ts seed data
@@ -1131,6 +1172,7 @@ curl -X POST http://localhost:3000/api/seed
 ## 8. Files Summary
 
 ### New Files (12)
+
 ```
 src/components/shared/Panel.tsx
 src/endpoints/seed/index.ts
@@ -1144,6 +1186,7 @@ public/seed/*.{png,webp} (6 images)
 ```
 
 ### Modified Files (5)
+
 ```
 src/app/(frontend)/styles.css (add CSS utilities)
 src/components/Header/Component.client.tsx (scroll shadow)
@@ -1154,6 +1197,7 @@ public/site.webmanifest (update content)
 ```
 
 ### Copied Files (12)
+
 ```
 public/logo.svg
 public/logo.png
@@ -1219,6 +1263,7 @@ public/site.webmanifest
 ## Confidence Score: 9/10
 
 **Rationale**:
+
 - Complete code examples for all new files
 - Follows established patterns from reference projects
 - Type-safe seed data using `RequiredDataFromCollectionSlug`
@@ -1226,12 +1271,14 @@ public/site.webmanifest
 - Builds on already-working foundation (Phase 1-7 complete)
 
 **Risk Mitigation**:
+
 - Run `pnpm check-types` after each phase
 - Test layout changes visually before moving to next phase
 - Verify seed images exist before running seed
 - Test seed in development before production
 
 **Only Uncertainties**:
+
 - Image paths may need adjustment based on actual file locations
 - Some project URLs are placeholder (user will update)
 - Phone number is placeholder (user will update)

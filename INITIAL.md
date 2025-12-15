@@ -21,43 +21,45 @@ Build a **pixel-perfect, world-class portfolio** for srjay.com that showcases pr
 
 ## Owner Details
 
-| Item | Value |
-|------|-------|
-| **Name** | srjay |
-| **Website** | srjay.com |
-| **GitHub** | srjaykikani |
-| **Twitter/X** | @_srjay |
-| **Instagram** | @_srjay |
-| **LinkedIn** | srjaykikani |
+| Item          | Value       |
+| ------------- | ----------- |
+| **Name**      | srjay       |
+| **Website**   | srjay.com   |
+| **GitHub**    | srjaykikani |
+| **Twitter/X** | @\_srjay    |
+| **Instagram** | @\_srjay    |
+| **LinkedIn**  | srjaykikani |
 
 ---
 
 ## Design Requirements
 
-| Aspect | Requirement | Reference Source |
-|--------|-------------|------------------|
-| **Layout** | Single-page scroll with distinct sections | chanhdai.com |
-| **UI Components** | COSS UI (Base UI primitives) - already installed | Current project (50+ components) |
-| **Background** | Clean white/light - no patterns, no diagonal separators | Custom |
-| **Profile Header** | Photo gallery style with multiple images | braydoncoyer.dev |
-| **GitHub Activity** | Contribution calendar graph | victoreke.com |
-| **Navigation** | Sticky header with logo, section jump links, theme toggle | Custom |
-| **Visual Style** | Rounded corners (`rounded-2xl`), soft shadows (`shadow-xs`), subtle borders | portfolio-site-master |
-| **Animations** | NONE - no animations, simple hover effects only | Requirement |
-| **Responsiveness** | Mobile-first, works on all devices | Standard |
-| **Theme** | Light/dark mode with system preference detection | Built-in |
+| Aspect              | Requirement                                                                 | Reference Source                 |
+| ------------------- | --------------------------------------------------------------------------- | -------------------------------- |
+| **Layout**          | Single-page scroll with distinct sections                                   | chanhdai.com                     |
+| **UI Components**   | COSS UI (Base UI primitives) - already installed                            | Current project (50+ components) |
+| **Background**      | Clean white/light - no patterns, no diagonal separators                     | Custom                           |
+| **Profile Header**  | Photo gallery style with multiple images                                    | braydoncoyer.dev                 |
+| **GitHub Activity** | Contribution calendar graph                                                 | victoreke.com                    |
+| **Navigation**      | Sticky header with logo, section jump links, theme toggle                   | Custom                           |
+| **Visual Style**    | Rounded corners (`rounded-2xl`), soft shadows (`shadow-xs`), subtle borders | portfolio-site-master            |
+| **Animations**      | NONE - no animations, simple hover effects only                             | Requirement                      |
+| **Responsiveness**  | Mobile-first, works on all devices                                          | Standard                         |
+| **Theme**           | Light/dark mode with system preference detection                            | Built-in                         |
 
 ---
 
 ## Reference Projects - Implementation Priority
 
 ### 1. doctor-raj (PRIMARY - Same Stack)
+
 **Location**: `example/doctor-raj`
 **Priority**: Copy patterns directly with minimal modification
 
 #### What to Copy:
 
 **Block System Architecture (16 Block Types)**
+
 - HeroBlock - Title, subtitle, links, media
 - ServiceCardsBlock - Grid display with relationship to collection
 - FeatureBlock - Image + text side-by-side, configurable position
@@ -72,29 +74,34 @@ Build a **pixel-perfect, world-class portfolio** for srjay.com that showcases pr
 - CallToActionBlock - Centered CTA with flexible buttons
 
 **tRPC Router Pattern**
+
 - Pages router: `getBySlug`, `getAll` with proper depth/limit
 - Services router: Same pattern for detail pages
 - Error handling with descriptive TRPCError messages
 - Context with Payload instance + user
 
 **Hero System (3 Variants)**
+
 - HighImpact: Full-width image + centered text + 2 CTAs
 - MediumImpact: Side-by-side layout
 - LowImpact: Text only
 - RenderHero dispatcher component
 
 **Reusable Fields**
+
 - `link.ts`: Internal reference OR external URL, appearance options
 - `linkGroup.ts`: Array wrapper with maxRows
 - `colorField.ts`: HEX validation with custom UI
 - `richText.ts`: Lexical config with internal link support
 
 **Component Patterns**
+
 - CMSLink: Resolves internal references to routes, 4 appearance styles
 - RenderBlocks: Block dispatcher with type mapping
 - RichText: Lexical renderer with custom converters
 
 **Footer Configuration**
+
 - companyInfo.tagline
 - serviceLinks array
 - companyLinks array
@@ -105,17 +112,20 @@ Build a **pixel-perfect, world-class portfolio** for srjay.com that showcases pr
 ---
 
 ### 2. Payload Official Website Template (AUTHORITATIVE)
+
 **Location**: `example/website`
 **Priority**: Follow these patterns exactly for Payload best practices
 
 #### What to Copy:
 
 **Access Control Patterns**
+
 - `authenticated`: Returns `Boolean(user)` - requires login
 - `authenticatedOrPublished`: Full access for users, query filter `{ _status: { equals: 'published' } }` for anonymous
 - `anyone`: Returns `true` - public access
 
 **Collection Configuration Pattern**
+
 ```
 Collection: {
   access: {
@@ -139,6 +149,7 @@ Collection: {
 ```
 
 **Revalidation Hook Pattern (CRITICAL)**
+
 ```
 - Always check context.disableRevalidate first
 - Use revalidatePath() for specific routes
@@ -149,6 +160,7 @@ Collection: {
 ```
 
 **Reusable Link Field**
+
 - Type selector: reference (internal) or custom (external URL)
 - Appearance options: default, outline (or disabled)
 - New tab checkbox
@@ -156,17 +168,20 @@ Collection: {
 - Deep merge support for overrides
 
 **Live Preview Setup**
+
 - Breakpoints: Mobile (375), Tablet (768), Desktop (1440)
 - generatePreviewPath utility with encoded parameters
 - LivePreviewListener client component
 - Render only when `draft` is true
 
 **Caching Strategy**
+
 - `getCachedDocument(collection, slug)` with `unstable_cache`
 - `getCachedGlobal(slug, depth)` with `unstable_cache`
 - Tags: `${collection}_${slug}` or `global_${slug}`
 
 **Dynamic Route Pattern**
+
 ```
 - generateStaticParams: Fetch all, filter out 'home', return slugs
 - Page component: Check draftMode(), decode slug, query with cache()
@@ -175,6 +190,7 @@ Collection: {
 ```
 
 **Hook Patterns**
+
 - `beforeChange`: Data transformation (populatePublishedAt)
 - `afterChange`: Side effects (revalidation)
 - `afterRead`: Data enrichment (populateAuthors)
@@ -183,33 +199,39 @@ Collection: {
 ---
 
 ### 3. portfolio-site-master (Design Reference)
+
 **Location**: `example/portfolio-site-master`
 **Priority**: Reference for visual styling and portfolio-specific components
 
 #### What to Reference:
 
 **Card Styling**
+
 - Rounded corners with soft shadows
 - Subtle inner shadows using `before:` pseudo-elements
 - Background clips for dark mode borders
 - Hover transitions on shadow and outline
 
 **Photo Gallery with EXIF**
+
 - EXIF metadata extraction and display
 - Lightbox view for full-size images
 - Grid layout with consistent aspect ratios
 
 **Project Showcase**
+
 - Featured project carousel with progress bar
 - Gradient backgrounds based on project colors
 - Image positioning with object-fit cover
 
 **Tech Stack Display**
+
 - Icon grid presentation
 - Tooltip on hover for skill names
 - Category grouping (Frontend, Backend, Tools)
 
 **FeaturedProjects Component Pattern**
+
 - Auto-advance carousel with pause on hover
 - Navigation arrows
 - Progress indicator
@@ -219,12 +241,14 @@ Collection: {
 ---
 
 ### 4. chanhdai.com (Layout Reference)
+
 **Location**: External reference
 **Priority**: Follow single-page scroll structure
 
 #### What to Reference:
 
 **Page Organization**
+
 - Hero at top
 - Overview section with job title, location, timezone
 - Social links in 2-column grid
@@ -234,6 +258,7 @@ Collection: {
 - Contact at bottom
 
 **Section Flow**
+
 - Consistent vertical spacing between sections
 - Clean transitions without decorative elements
 - Section anchors for navigation
@@ -241,12 +266,14 @@ Collection: {
 ---
 
 ### 5. braydoncoyer.dev (Profile Reference)
+
 **Location**: External reference
 **Priority**: Hero section inspiration
 
 #### What to Reference:
 
 **Profile Header**
+
 - Multiple photos in gallery layout
 - Name prominently displayed
 - Tagline/title underneath
@@ -255,12 +282,14 @@ Collection: {
 ---
 
 ### 6. victoreke.com (GitHub Reference)
+
 **Location**: External reference
 **Priority**: GitHub activity display
 
 #### What to Reference:
 
 **Contribution Calendar**
+
 - react-github-calendar integration
 - Username: srjaykikani
 - Activity statistics display
@@ -271,86 +300,91 @@ Collection: {
 ## Content Management (Payload CMS)
 
 ### New Global: Profile
+
 Stores personal information editable via admin panel:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| name | text | Full name |
-| title | text | Job title/tagline |
-| bio | richText | About section content |
-| avatar | upload (Media) | Main profile photo |
-| photos | array of upload | Gallery photos (3-5 images) |
-| email | email | Contact email |
-| phone | text | Phone number (optional) |
-| location | text | City, Country |
-| timezone | text | e.g., "Asia/Kolkata" |
-| github | text | GitHub username |
-| socialLinks | array | Platform + URL pairs |
-| resumeUrl | text | Resume/CV link |
+| Field       | Type            | Description                 |
+| ----------- | --------------- | --------------------------- |
+| name        | text            | Full name                   |
+| title       | text            | Job title/tagline           |
+| bio         | richText        | About section content       |
+| avatar      | upload (Media)  | Main profile photo          |
+| photos      | array of upload | Gallery photos (3-5 images) |
+| email       | email           | Contact email               |
+| phone       | text            | Phone number (optional)     |
+| location    | text            | City, Country               |
+| timezone    | text            | e.g., "Asia/Kolkata"        |
+| github      | text            | GitHub username             |
+| socialLinks | array           | Platform + URL pairs        |
+| resumeUrl   | text            | Resume/CV link              |
 
 **Access**: `read: anyone` (public)
 **Hooks**: `afterChange: revalidateProfile`
 
 ### New Collection: Projects
+
 Portfolio projects with full case study support:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| title | text | Project name (required) |
-| slug | text | URL slug (auto-generated, unique) |
-| description | textarea | Short description for cards |
-| image | upload (Media) | Cover image |
-| tags | array of text | Technology tags |
-| liveUrl | text | Live demo URL |
-| githubUrl | text | Source code URL |
-| featured | checkbox | Show on homepage |
-| order | number | Sort order |
-| content | richText (Lexical) | Full project case study |
-| meta | group | SEO fields (title, description, image) |
+| Field       | Type               | Description                            |
+| ----------- | ------------------ | -------------------------------------- |
+| title       | text               | Project name (required)                |
+| slug        | text               | URL slug (auto-generated, unique)      |
+| description | textarea           | Short description for cards            |
+| image       | upload (Media)     | Cover image                            |
+| tags        | array of text      | Technology tags                        |
+| liveUrl     | text               | Live demo URL                          |
+| githubUrl   | text               | Source code URL                        |
+| featured    | checkbox           | Show on homepage                       |
+| order       | number             | Sort order                             |
+| content     | richText (Lexical) | Full project case study                |
+| meta        | group              | SEO fields (title, description, image) |
 
 **Access**: `read: authenticatedOrPublished`, `create/update/delete: authenticated`
 **Hooks**: `afterChange: revalidateProject`
 **Versions**: Drafts enabled with autosave
 
 ### New Collection: Experiences
+
 Work history entries:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| company | text | Company name (required) |
-| logo | upload (Media) | Company logo |
-| title | text | Job title (required) |
-| startDate | date | Start date |
-| endDate | date | End date (null = present) |
-| description | richText | Role description and achievements |
-| website | text | Company website URL |
-| order | number | Sort order (desc) |
+| Field       | Type           | Description                       |
+| ----------- | -------------- | --------------------------------- |
+| company     | text           | Company name (required)           |
+| logo        | upload (Media) | Company logo                      |
+| title       | text           | Job title (required)              |
+| startDate   | date           | Start date                        |
+| endDate     | date           | End date (null = present)         |
+| description | richText       | Role description and achievements |
+| website     | text           | Company website URL               |
+| order       | number         | Sort order (desc)                 |
 
 **Access**: `read: anyone`, `create/update/delete: authenticated`
 
 ### New Collection: Skills
+
 Technical skills and technologies:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| name | text | Skill name (required) |
-| icon | text | Icon identifier (lucide or devicon) |
-| category | select | Frontend / Backend / Tools / Other |
-| url | text | Official website |
-| order | number | Sort order within category |
+| Field    | Type   | Description                         |
+| -------- | ------ | ----------------------------------- |
+| name     | text   | Skill name (required)               |
+| icon     | text   | Icon identifier (lucide or devicon) |
+| category | select | Frontend / Backend / Tools / Other  |
+| url      | text   | Official website                    |
+| order    | number | Sort order within category          |
 
 **Access**: `read: anyone`, `create/update/delete: authenticated`
 
 ### New Collection: Gallery (Optional)
+
 Photography showcase:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| image | upload (Media) | Photo (required) |
-| title | text | Photo title |
-| description | textarea | Caption |
-| exifData | json | EXIF metadata (auto-extracted) |
-| order | number | Sort order |
+| Field       | Type           | Description                    |
+| ----------- | -------------- | ------------------------------ |
+| image       | upload (Media) | Photo (required)               |
+| title       | text           | Photo title                    |
+| description | textarea       | Caption                        |
+| exifData    | json           | EXIF metadata (auto-extracted) |
+| order       | number         | Sort order                     |
 
 **Access**: `read: anyone`, `create/update/delete: authenticated`
 
@@ -358,30 +392,31 @@ Photography showcase:
 
 ## Homepage Sections (Top to Bottom)
 
-| # | Section | Description | Data Source |
-|---|---------|-------------|-------------|
-| 1 | **Hero** | Profile photos, name, tagline | Profile global |
-| 2 | **Overview** | Current role, location, local time | Profile global |
-| 3 | **Social Links** | Grid of social profile links | Profile global |
-| 4 | **About** | Bio/introduction text | Profile global |
-| 5 | **GitHub Activity** | Contribution calendar for srjaykikani | GitHub API |
-| 6 | **Tech Stack** | Icon grid of skills/technologies | Skills collection |
-| 7 | **Experience** | Timeline of work history | Experiences collection |
-| 8 | **Projects** | Collapsible list of featured projects | Projects collection (featured=true) |
-| 9 | **Gallery** | Photo showcase (optional) | Gallery collection |
-| 10 | **Contact** | Email and call-to-action | Profile global |
+| #   | Section             | Description                           | Data Source                         |
+| --- | ------------------- | ------------------------------------- | ----------------------------------- |
+| 1   | **Hero**            | Profile photos, name, tagline         | Profile global                      |
+| 2   | **Overview**        | Current role, location, local time    | Profile global                      |
+| 3   | **Social Links**    | Grid of social profile links          | Profile global                      |
+| 4   | **About**           | Bio/introduction text                 | Profile global                      |
+| 5   | **GitHub Activity** | Contribution calendar for srjaykikani | GitHub API                          |
+| 6   | **Tech Stack**      | Icon grid of skills/technologies      | Skills collection                   |
+| 7   | **Experience**      | Timeline of work history              | Experiences collection              |
+| 8   | **Projects**        | Collapsible list of featured projects | Projects collection (featured=true) |
+| 9   | **Gallery**         | Photo showcase (optional)             | Gallery collection                  |
+| 10  | **Contact**         | Email and call-to-action              | Profile global                      |
 
 ---
 
 ## Header Requirements
 
-| Position | Element | Behavior |
-|----------|---------|----------|
-| Left | Logo/wordmark | Links to top of page |
-| Center | Section navigation | Scrolls smoothly to sections |
-| Right | Theme toggle | Switches light/dark mode |
+| Position | Element            | Behavior                     |
+| -------- | ------------------ | ---------------------------- |
+| Left     | Logo/wordmark      | Links to top of page         |
+| Center   | Section navigation | Scrolls smoothly to sections |
+| Right    | Theme toggle       | Switches light/dark mode     |
 
 **Behavior**:
+
 - Sticky on scroll
 - Backdrop blur effect
 - Section links highlight based on scroll position
@@ -391,28 +426,28 @@ Photography showcase:
 
 ## Footer Requirements
 
-| Element | Description |
-|---------|-------------|
-| Contact email | Primary contact method |
-| Social links | GitHub, X, Instagram, LinkedIn |
-| Built with | Next.js, Payload CMS, COSS UI credits |
-| Copyright | Auto-updated year |
+| Element       | Description                           |
+| ------------- | ------------------------------------- |
+| Contact email | Primary contact method                |
+| Social links  | GitHub, X, Instagram, LinkedIn        |
+| Built with    | Next.js, Payload CMS, COSS UI credits |
+| Copyright     | Auto-updated year                     |
 
 ---
 
 ## Quality Standards
 
-| Category | Requirement |
-|----------|-------------|
-| **Performance** | Lighthouse score 90+ on all metrics |
-| **Accessibility** | WCAG 2.1 AA compliant |
-| **SEO** | Proper meta tags, OpenGraph, sitemap |
-| **Type Safety** | Zero TypeScript errors, no `as any` |
-| **Code Quality** | Follow CLAUDE.md and .claude/ standards |
-| **Testing** | Critical paths covered |
-| **Payload Queries** | Always use `depth: 0` and `limit` |
-| **tRPC Pattern** | `useTRPC()` inside components only |
-| **Imports** | Direct imports, no barrel exports |
+| Category            | Requirement                             |
+| ------------------- | --------------------------------------- |
+| **Performance**     | Lighthouse score 90+ on all metrics     |
+| **Accessibility**   | WCAG 2.1 AA compliant                   |
+| **SEO**             | Proper meta tags, OpenGraph, sitemap    |
+| **Type Safety**     | Zero TypeScript errors, no `as any`     |
+| **Code Quality**    | Follow CLAUDE.md and .claude/ standards |
+| **Testing**         | Critical paths covered                  |
+| **Payload Queries** | Always use `depth: 0` and `limit`       |
+| **tRPC Pattern**    | `useTRPC()` inside components only      |
+| **Imports**         | Direct imports, no barrel exports       |
 
 ---
 
@@ -436,6 +471,7 @@ date-fns                 # Date formatting for experience timeline
 ```
 
 Already installed:
+
 - COSS UI components (50+ in src/components/ui/)
 - Base UI primitives (@base-ui-components/react)
 - Lucide icons (lucide-react)
@@ -445,29 +481,29 @@ Already installed:
 
 ## Implementation Order
 
-| Phase | Task | Reference |
-|-------|------|-----------|
-| 1 | Install dependencies | package.json |
-| 2 | Create Profile global | website template |
-| 3 | Create Projects collection | website + doctor-raj |
-| 4 | Create Experiences collection | website template |
-| 5 | Create Skills collection | website template |
-| 6 | Update payload.config.ts | website template |
-| 7 | Set white background default | styles.css |
-| 8 | Create Hero section | braydoncoyer.dev |
-| 9 | Create Overview section | chanhdai.com |
-| 10 | Create Social Links section | chanhdai.com |
-| 11 | Create About section | chanhdai.com |
-| 12 | Create GitHub section | victoreke.com |
-| 13 | Create Tech Stack section | portfolio-site-master |
-| 14 | Create Experience section | chanhdai.com |
-| 15 | Create Projects section | chanhdai.com |
-| 16 | Create Gallery section (optional) | portfolio-site-master |
-| 17 | Create Contact section | Custom |
-| 18 | Update Header with sticky nav | doctor-raj |
-| 19 | Update Footer | doctor-raj |
-| 20 | Create project detail page | website template |
-| 21 | Test and polish | All references |
+| Phase | Task                              | Reference             |
+| ----- | --------------------------------- | --------------------- |
+| 1     | Install dependencies              | package.json          |
+| 2     | Create Profile global             | website template      |
+| 3     | Create Projects collection        | website + doctor-raj  |
+| 4     | Create Experiences collection     | website template      |
+| 5     | Create Skills collection          | website template      |
+| 6     | Update payload.config.ts          | website template      |
+| 7     | Set white background default      | styles.css            |
+| 8     | Create Hero section               | braydoncoyer.dev      |
+| 9     | Create Overview section           | chanhdai.com          |
+| 10    | Create Social Links section       | chanhdai.com          |
+| 11    | Create About section              | chanhdai.com          |
+| 12    | Create GitHub section             | victoreke.com         |
+| 13    | Create Tech Stack section         | portfolio-site-master |
+| 14    | Create Experience section         | chanhdai.com          |
+| 15    | Create Projects section           | chanhdai.com          |
+| 16    | Create Gallery section (optional) | portfolio-site-master |
+| 17    | Create Contact section            | Custom                |
+| 18    | Update Header with sticky nav     | doctor-raj            |
+| 19    | Update Footer                     | doctor-raj            |
+| 20    | Create project detail page        | website template      |
+| 21    | Test and polish                   | All references        |
 
 ---
 
@@ -536,74 +572,75 @@ COSS UI uses opaque borders instead of solid ones to ensure crisp, contrasted bo
 
 ### Core Color Variables
 
-| Token | Light Mode | Dark Mode | Usage |
-|-------|------------|-----------|-------|
-| `--background` | white | zinc-950 | Page background |
-| `--foreground` | zinc-900 | zinc-100 | Primary text |
-| `--card` | white | zinc-900/80 mixed | Card surfaces |
-| `--card-foreground` | zinc-900 | zinc-100 | Card text |
-| `--popover` | white | zinc-900 | Tooltips, dropdowns |
-| `--popover-foreground` | zinc-900 | zinc-100 | Popover text |
-| `--primary` | zinc-800 | zinc-100 | Primary buttons, links |
-| `--primary-foreground` | zinc-50 | zinc-900 | Primary button text |
-| `--secondary` | black/4% | white/6% | Secondary buttons |
-| `--secondary-foreground` | zinc-900 | zinc-100 | Secondary button text |
-| `--muted` | black/4% | white/6% | Muted backgrounds |
-| `--muted-foreground` | zinc-600 | zinc-400 | Muted/subtle text |
-| `--accent` | black/4% | white/6% | Accent backgrounds |
-| `--accent-foreground` | zinc-900 | zinc-100 | Accent text |
-| `--border` | black/12% | white/12% | Borders (opaque) |
-| `--input` | black/12% | white/12% | Input borders |
-| `--ring` | zinc-400 | zinc-500 | Focus rings |
+| Token                    | Light Mode | Dark Mode         | Usage                  |
+| ------------------------ | ---------- | ----------------- | ---------------------- |
+| `--background`           | white      | zinc-950          | Page background        |
+| `--foreground`           | zinc-900   | zinc-100          | Primary text           |
+| `--card`                 | white      | zinc-900/80 mixed | Card surfaces          |
+| `--card-foreground`      | zinc-900   | zinc-100          | Card text              |
+| `--popover`              | white      | zinc-900          | Tooltips, dropdowns    |
+| `--popover-foreground`   | zinc-900   | zinc-100          | Popover text           |
+| `--primary`              | zinc-800   | zinc-100          | Primary buttons, links |
+| `--primary-foreground`   | zinc-50    | zinc-900          | Primary button text    |
+| `--secondary`            | black/4%   | white/6%          | Secondary buttons      |
+| `--secondary-foreground` | zinc-900   | zinc-100          | Secondary button text  |
+| `--muted`                | black/4%   | white/6%          | Muted backgrounds      |
+| `--muted-foreground`     | zinc-600   | zinc-400          | Muted/subtle text      |
+| `--accent`               | black/4%   | white/6%          | Accent backgrounds     |
+| `--accent-foreground`    | zinc-900   | zinc-100          | Accent text            |
+| `--border`               | black/12%  | white/12%         | Borders (opaque)       |
+| `--input`                | black/12%  | white/12%         | Input borders          |
+| `--ring`                 | zinc-400   | zinc-500          | Focus rings            |
 
 ### State Color Variables
 
-| Token | Light Mode | Dark Mode | Usage |
-|-------|------------|-----------|-------|
-| `--destructive` | red-500 | red-500 | Error/destructive actions |
-| `--destructive-foreground` | red-700 | red-400 | Destructive text |
-| `--info` | blue-500 | blue-500 | Information states |
-| `--info-foreground` | blue-700 | blue-400 | Info text |
-| `--success` | emerald-500 | emerald-500 | Success states |
-| `--success-foreground` | emerald-700 | emerald-400 | Success text |
-| `--warning` | amber-500 | amber-500 | Warning states |
-| `--warning-foreground` | amber-700 | amber-400 | Warning text |
+| Token                      | Light Mode  | Dark Mode   | Usage                     |
+| -------------------------- | ----------- | ----------- | ------------------------- |
+| `--destructive`            | red-500     | red-500     | Error/destructive actions |
+| `--destructive-foreground` | red-700     | red-400     | Destructive text          |
+| `--info`                   | blue-500    | blue-500    | Information states        |
+| `--info-foreground`        | blue-700    | blue-400    | Info text                 |
+| `--success`                | emerald-500 | emerald-500 | Success states            |
+| `--success-foreground`     | emerald-700 | emerald-400 | Success text              |
+| `--warning`                | amber-500   | amber-500   | Warning states            |
+| `--warning-foreground`     | amber-700   | amber-400   | Warning text              |
 
 ### Tailwind Utility Classes
 
-| Class | Value | Usage |
-|-------|-------|-------|
-| `bg-background` | var(--background) | Page background |
-| `bg-card` | var(--card) | Card surfaces |
-| `bg-popover` | var(--popover) | Tooltips, dropdowns |
-| `bg-primary` | var(--primary) | Primary buttons |
-| `bg-secondary` | var(--secondary) | Secondary buttons |
-| `bg-muted` | var(--muted) | Muted backgrounds |
-| `bg-accent` | var(--accent) | Hover states |
-| `bg-destructive` | var(--destructive) | Error backgrounds |
-| `text-foreground` | var(--foreground) | Primary text |
-| `text-muted-foreground` | var(--muted-foreground) | Subtle text |
-| `text-primary` | var(--primary) | Primary color text |
-| `border` | var(--border) | Default border |
-| `ring` | var(--ring) | Focus ring |
+| Class                   | Value                   | Usage               |
+| ----------------------- | ----------------------- | ------------------- |
+| `bg-background`         | var(--background)       | Page background     |
+| `bg-card`               | var(--card)             | Card surfaces       |
+| `bg-popover`            | var(--popover)          | Tooltips, dropdowns |
+| `bg-primary`            | var(--primary)          | Primary buttons     |
+| `bg-secondary`          | var(--secondary)        | Secondary buttons   |
+| `bg-muted`              | var(--muted)            | Muted backgrounds   |
+| `bg-accent`             | var(--accent)           | Hover states        |
+| `bg-destructive`        | var(--destructive)      | Error backgrounds   |
+| `text-foreground`       | var(--foreground)       | Primary text        |
+| `text-muted-foreground` | var(--muted-foreground) | Subtle text         |
+| `text-primary`          | var(--primary)          | Primary color text  |
+| `border`                | var(--border)           | Default border      |
+| `ring`                  | var(--ring)             | Focus ring          |
 
 ### Layout Tokens
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--radius` | 0.625rem (10px) | Base border radius |
-| `rounded-sm` | calc(var(--radius) - 4px) | Small elements |
-| `rounded-md` | calc(var(--radius) - 2px) | Tooltips, inputs |
-| `rounded-lg` | var(--radius) | Buttons, badges |
-| `rounded-xl` | calc(var(--radius) + 4px) | Cards, dialogs |
-| `rounded-2xl` | calc(var(--radius) + 8px) | Large containers |
-| `shadow-xs` | 0 1px 2px black/5% | Subtle elevation |
-| `shadow-sm` | 0 1px 3px black/10% | Card shadows |
-| `shadow-md` | 0 4px 6px black/10% | Dropdown shadows |
+| Token         | Value                     | Usage              |
+| ------------- | ------------------------- | ------------------ |
+| `--radius`    | 0.625rem (10px)           | Base border radius |
+| `rounded-sm`  | calc(var(--radius) - 4px) | Small elements     |
+| `rounded-md`  | calc(var(--radius) - 2px) | Tooltips, inputs   |
+| `rounded-lg`  | var(--radius)             | Buttons, badges    |
+| `rounded-xl`  | calc(var(--radius) + 4px) | Cards, dialogs     |
+| `rounded-2xl` | calc(var(--radius) + 8px) | Large containers   |
+| `shadow-xs`   | 0 1px 2px black/5%        | Subtle elevation   |
+| `shadow-sm`   | 0 1px 3px black/10%       | Card shadows       |
+| `shadow-md`   | 0 4px 6px black/10%       | Dropdown shadows   |
 
 ### Component-Specific Patterns
 
 **Cards** (from COSS UI card.tsx):
+
 ```
 bg-card border shadow-xs rounded-2xl
 before:shadow-[0_1px_--theme(--color-black/4%)]  // Light mode inner shadow
@@ -611,6 +648,7 @@ dark:before:shadow-[0_-1px_--theme(--color-white/8%)]  // Dark mode top highligh
 ```
 
 **Tooltips/Popovers** (from COSS UI tooltip.tsx):
+
 ```
 bg-popover border rounded-md shadow-md shadow-black/5
 before:shadow-[0_1px_--theme(--color-black/4%)]
@@ -618,6 +656,7 @@ dark:before:shadow-[0_-1px_--theme(--color-white/8%)]
 ```
 
 **Buttons**:
+
 ```
 Primary: bg-primary text-primary-foreground hover:bg-primary/90
 Secondary: bg-secondary text-secondary-foreground hover:bg-secondary/80
@@ -629,16 +668,16 @@ Ghost: hover:bg-accent hover:text-accent-foreground
 
 ## Key Technical Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| UI Library | COSS UI (Base UI) | Already installed, accessible primitives |
-| State Management | React Query via tRPC | Type-safe, built-in caching |
-| Styling | Tailwind CSS v4 | Already configured, utility-first |
-| CMS | Payload CMS | Already set up, same as references |
-| Database | MongoDB | Already configured |
-| Hosting | Vercel (assumed) | Next.js optimized |
-| GitHub Calendar | react-github-calendar | Proven library |
-| Icons | Lucide React | Already installed |
+| Decision         | Choice                | Rationale                                |
+| ---------------- | --------------------- | ---------------------------------------- |
+| UI Library       | COSS UI (Base UI)     | Already installed, accessible primitives |
+| State Management | React Query via tRPC  | Type-safe, built-in caching              |
+| Styling          | Tailwind CSS v4       | Already configured, utility-first        |
+| CMS              | Payload CMS           | Already set up, same as references       |
+| Database         | MongoDB               | Already configured                       |
+| Hosting          | Vercel (assumed)      | Next.js optimized                        |
+| GitHub Calendar  | react-github-calendar | Proven library                           |
+| Icons            | Lucide React          | Already installed                        |
 
 ---
 
@@ -650,10 +689,10 @@ The layout system uses a distinctive "screen-line" pattern that extends visual b
 
 ### Container Pattern
 
-| Element | Class | Description |
-|---------|-------|-------------|
-| **Outer wrapper** | `max-w-screen overflow-x-hidden px-2` | Prevents horizontal scroll, adds edge padding |
-| **Inner container** | `mx-auto md:max-w-3xl` | Centers content, max 768px on desktop |
+| Element                | Class                                                       | Description                                            |
+| ---------------------- | ----------------------------------------------------------- | ------------------------------------------------------ |
+| **Outer wrapper**      | `max-w-screen overflow-x-hidden px-2`                       | Prevents horizontal scroll, adds edge padding          |
+| **Inner container**    | `mx-auto md:max-w-3xl`                                      | Centers content, max 768px on desktop                  |
 | **Content with lines** | `screen-line-before screen-line-after border-x border-edge` | Vertical edge lines + horizontal screen-spanning lines |
 
 ### CSS Utility Classes to Create
@@ -699,10 +738,12 @@ Add to `src/app/(frontend)/styles.css`:
 
 ```tsx
 // Header wrapper with scroll-based shadow
-<header className={cn(
-  "sticky top-0 z-50 max-w-screen overflow-x-hidden bg-background px-2 pt-2",
-  "data-[affix=true]:shadow-[0_0_16px_0_black]/8"  // Shadow appears on scroll
-)}>
+<header
+  className={cn(
+    'sticky top-0 z-50 max-w-screen overflow-x-hidden bg-background px-2 pt-2',
+    'data-[affix=true]:shadow-[0_0_16px_0_black]/8', // Shadow appears on scroll
+  )}
+>
   <div className="screen-line-before screen-line-after mx-auto flex h-12 items-center justify-between gap-2 border-x border-edge px-2 md:max-w-3xl">
     {/* Logo | Nav Links | Theme Toggle */}
   </div>
@@ -739,10 +780,7 @@ export function Panel({ children, className, id }: PanelProps) {
   return (
     <section
       id={id}
-      className={cn(
-        "relative screen-line-after border-x border-edge px-4 py-8",
-        className
-      )}
+      className={cn('relative screen-line-after border-x border-edge px-4 py-8', className)}
     >
       {children}
     </section>
@@ -752,13 +790,13 @@ export function Panel({ children, className, id }: PanelProps) {
 
 ### Key Layout Differences from Current Implementation
 
-| Current | Required Change |
-|---------|-----------------|
-| `container` class | Replace with `mx-auto md:max-w-3xl` |
-| Simple sections | Add `screen-line-before/after` utilities |
-| Basic borders | Use `border-edge` color token |
-| No scroll shadow | Add `data-[affix=true]:shadow-[...]` to header |
-| Variable header height | Standardize to `h-12` (48px) |
+| Current                | Required Change                                |
+| ---------------------- | ---------------------------------------------- |
+| `container` class      | Replace with `mx-auto md:max-w-3xl`            |
+| Simple sections        | Add `screen-line-before/after` utilities       |
+| Basic borders          | Use `border-edge` color token                  |
+| No scroll shadow       | Add `data-[affix=true]:shadow-[...]` to header |
+| Variable header height | Standardize to `h-12` (48px)                   |
 
 ### IMPORTANT: Font Requirement
 
@@ -772,31 +810,31 @@ export function Panel({ children, className, id }: PanelProps) {
 
 **Source**: `example/Srjay.com-GSAP-main/public/`
 
-| Asset | Source Path | Destination | Usage |
-|-------|-------------|-------------|-------|
-| **Main Logo** | `S R logo.svg` | `public/logo.svg` | Header, favicon |
-| **Logo PNG** | `logosrjay.png` | `public/logo.png` | Social/OG image |
-| **Logo Alt** | `logo.png` | `public/logo-alt.png` | Alternative usage |
-| **Favicon ICO** | `favicon.ico` | `public/favicon.ico` | Browser tab |
-| **Favicon SVG** | `favicon.svg` | `public/favicon.svg` | Modern browsers |
-| **Favicon 16** | `favicon-16x16.png` | `public/favicon-16x16.png` | Small icon |
-| **Favicon 32** | `favicon-32x32.png` | `public/favicon-32x32.png` | Standard icon |
-| **Apple Touch** | `apple-touch-icon.png` | `public/apple-touch-icon.png` | iOS home screen |
-| **Android 192** | `android-chrome-192x192.png` | `public/android-chrome-192x192.png` | Android PWA |
-| **Android 512** | `android-chrome-512x512.png` | `public/android-chrome-512x512.png` | Android splash |
-| **Profile Photo** | `srjay.png` | `public/srjay.png` | Hero section avatar |
-| **Web Manifest** | `site.webmanifest` | `public/site.webmanifest` | PWA config |
+| Asset             | Source Path                  | Destination                         | Usage               |
+| ----------------- | ---------------------------- | ----------------------------------- | ------------------- |
+| **Main Logo**     | `S R logo.svg`               | `public/logo.svg`                   | Header, favicon     |
+| **Logo PNG**      | `logosrjay.png`              | `public/logo.png`                   | Social/OG image     |
+| **Logo Alt**      | `logo.png`                   | `public/logo-alt.png`               | Alternative usage   |
+| **Favicon ICO**   | `favicon.ico`                | `public/favicon.ico`                | Browser tab         |
+| **Favicon SVG**   | `favicon.svg`                | `public/favicon.svg`                | Modern browsers     |
+| **Favicon 16**    | `favicon-16x16.png`          | `public/favicon-16x16.png`          | Small icon          |
+| **Favicon 32**    | `favicon-32x32.png`          | `public/favicon-32x32.png`          | Standard icon       |
+| **Apple Touch**   | `apple-touch-icon.png`       | `public/apple-touch-icon.png`       | iOS home screen     |
+| **Android 192**   | `android-chrome-192x192.png` | `public/android-chrome-192x192.png` | Android PWA         |
+| **Android 512**   | `android-chrome-512x512.png` | `public/android-chrome-512x512.png` | Android splash      |
+| **Profile Photo** | `srjay.png`                  | `public/srjay.png`                  | Hero section avatar |
+| **Web Manifest**  | `site.webmanifest`           | `public/site.webmanifest`           | PWA config          |
 
 ### Project Assets (Copy for Seeding)
 
 **Source**: `example/Srjay.com-GSAP-main/public/`
 
-| Project | Files | Description |
-|---------|-------|-------------|
-| **ChallengeRate** | `challengerate-cover.png`, `challengerate-logo.svg` | Coding challenge platform |
-| **EduCave** | `educave-cover.png`, `educave-logo.svg` | Educational platform |
-| **E-Cell SVNIT** | `ecellsvnit-cover.png`, `ecellsvnit-logo.svg` | Entrepreneurship cell website |
-| **Dr Vandna** | `drvandna-cover.png`, `drvandna-logo.svg` | Medical practice website |
+| Project           | Files                                               | Description                   |
+| ----------------- | --------------------------------------------------- | ----------------------------- |
+| **ChallengeRate** | `challengerate-cover.png`, `challengerate-logo.svg` | Coding challenge platform     |
+| **EduCave**       | `educave-cover.png`, `educave-logo.svg`             | Educational platform          |
+| **E-Cell SVNIT**  | `ecellsvnit-cover.png`, `ecellsvnit-logo.svg`       | Entrepreneurship cell website |
+| **Dr Vandna**     | `drvandna-cover.png`, `drvandna-logo.svg`           | Medical practice website      |
 
 ### Icons to Include
 
@@ -808,7 +846,7 @@ Copy icon components for social links and tech stack display. Ensure icons follo
 
 ```json
 {
-  "name": "S R Jay",
+  "name": "S R Jay Kikani",
   "short_name": "srjay",
   "icons": [
     { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
@@ -940,14 +978,14 @@ export default buildConfig({
 import type { RequiredDataFromCollectionSlug } from 'payload'
 
 export const projectsData = (
-  mediaMap: Record<string, string>
+  mediaMap: Record<string, string>,
 ): RequiredDataFromCollectionSlug<'projects'>[] => {
   return [
     {
       title: 'Project Name',
       slug: 'project-slug',
       description: 'Short description',
-      image: mediaMap['project-cover'],  // Reference to seeded media
+      image: mediaMap['project-cover'], // Reference to seeded media
       tags: [{ tag: 'React' }, { tag: 'TypeScript' }],
       liveUrl: 'https://example.com',
       githubUrl: 'https://github.com/user/repo',
@@ -1006,7 +1044,7 @@ export async function seedMedia(payload: Payload): Promise<Record<string, string
 
 ```typescript
 {
-  name: 'S R Jay',
+  name: 'S R Jay Kikani',
   title: 'Full Stack Developer & Entrepreneur',
   bio: {
     // Lexical rich text format
@@ -1047,22 +1085,22 @@ export async function seedMedia(payload: Payload): Promise<Record<string, string
 
 ### Projects Collection Seed Data
 
-| # | Title | Slug | Description | Tags | Featured |
-|---|-------|------|-------------|------|----------|
-| 1 | **ChallengeRate** | `challengerate` | A competitive coding platform for developers to improve their skills through daily challenges | React, Node.js, MongoDB, WebSocket | ✅ |
-| 2 | **EduCave** | `educave` | Educational platform providing interactive learning experiences for students | Next.js, Payload CMS, TailwindCSS | ✅ |
-| 3 | **E-Cell SVNIT** | `ecell-svnit` | Official website for the Entrepreneurship Cell of SVNIT with event management | React, Express, PostgreSQL | ✅ |
-| 4 | **Dr. Vandna** | `dr-vandna` | Professional medical practice website with appointment booking system | Next.js, Stripe, SendGrid | ✅ |
-| 5 | **Portfolio v1** | `portfolio-v1` | Previous iteration of personal portfolio showcasing projects and skills | HTML, CSS, JavaScript, GSAP | ❌ |
+| #   | Title             | Slug            | Description                                                                                   | Tags                               | Featured |
+| --- | ----------------- | --------------- | --------------------------------------------------------------------------------------------- | ---------------------------------- | -------- |
+| 1   | **ChallengeRate** | `challengerate` | A competitive coding platform for developers to improve their skills through daily challenges | React, Node.js, MongoDB, WebSocket | ✅       |
+| 2   | **EduCave**       | `educave`       | Educational platform providing interactive learning experiences for students                  | Next.js, Payload CMS, TailwindCSS  | ✅       |
+| 3   | **E-Cell SVNIT**  | `ecell-svnit`   | Official website for the Entrepreneurship Cell of SVNIT with event management                 | React, Express, PostgreSQL         | ✅       |
+| 4   | **Dr. Vandna**    | `dr-vandna`     | Professional medical practice website with appointment booking system                         | Next.js, Stripe, SendGrid          | ✅       |
+| 5   | **Portfolio v1**  | `portfolio-v1`  | Previous iteration of personal portfolio showcasing projects and skills                       | HTML, CSS, JavaScript, GSAP        | ❌       |
 
 ### Experiences Collection Seed Data
 
-| # | Company | Title | Period | Description |
-|---|---------|-------|--------|-------------|
-| 1 | **Freelance** | Senior Full Stack Developer | 2023 - Present | Leading development of enterprise web applications. Building scalable solutions using Next.js, Node.js, and cloud infrastructure. |
-| 2 | **Tech Startup** | Full Stack Developer | 2021 - 2023 | Developed core product features, optimized database queries, and implemented CI/CD pipelines. Reduced page load time by 60%. |
-| 3 | **Web Agency** | Frontend Developer | 2020 - 2021 | Created responsive web interfaces for diverse clients. Specialized in React and modern CSS frameworks. |
-| 4 | **E-Cell SVNIT** | Technical Lead | 2019 - 2020 | Led technical team for entrepreneurship events. Built and maintained the cell's digital infrastructure. |
+| #   | Company          | Title                       | Period         | Description                                                                                                                       |
+| --- | ---------------- | --------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Freelance**    | Senior Full Stack Developer | 2023 - Present | Leading development of enterprise web applications. Building scalable solutions using Next.js, Node.js, and cloud infrastructure. |
+| 2   | **Tech Startup** | Full Stack Developer        | 2021 - 2023    | Developed core product features, optimized database queries, and implemented CI/CD pipelines. Reduced page load time by 60%.      |
+| 3   | **Web Agency**   | Frontend Developer          | 2020 - 2021    | Created responsive web interfaces for diverse clients. Specialized in React and modern CSS frameworks.                            |
+| 4   | **E-Cell SVNIT** | Technical Lead              | 2019 - 2020    | Led technical team for entrepreneurship events. Built and maintained the cell's digital infrastructure.                           |
 
 ### Skills Collection Seed Data
 
@@ -1098,17 +1136,18 @@ export async function seedMedia(payload: Payload): Promise<Record<string, string
 
 ### Gallery Collection Seed Data (Optional)
 
-| # | Title | Description |
-|---|-------|-------------|
-| 1 | Workspace Setup | My development workspace with dual monitors |
-| 2 | Conference Talk | Speaking at local tech meetup |
-| 3 | Team Hackathon | 24-hour hackathon with the team |
+| #   | Title           | Description                                 |
+| --- | --------------- | ------------------------------------------- |
+| 1   | Workspace Setup | My development workspace with dual monitors |
+| 2   | Conference Talk | Speaking at local tech meetup               |
+| 3   | Team Hackathon  | 24-hour hackathon with the team             |
 
 ---
 
 ## Seeding Execution
 
 ### Development
+
 ```bash
 # Start dev server
 pnpm dev
@@ -1118,6 +1157,7 @@ curl -X POST http://localhost:3000/api/seed
 ```
 
 ### Production
+
 ```bash
 # Set seed secret in environment
 SEED_SECRET=your-secret-token
@@ -1128,7 +1168,9 @@ curl -X POST https://srjay.com/api/seed \
 ```
 
 ### NPM Script (Optional)
+
 Add to `package.json`:
+
 ```json
 {
   "scripts": {
@@ -1142,6 +1184,7 @@ Add to `package.json`:
 ## Implementation Checklist for Layout & Seeding
 
 ### Phase A: Layout System Update
+
 - [ ] Create `screen-line-before/after` CSS utilities in styles.css
 - [ ] Add `--border-edge` CSS variable
 - [ ] Create `Panel` component for consistent sections
@@ -1151,6 +1194,7 @@ Add to `package.json`:
 - [ ] Verify mobile breakpoints (640px)
 
 ### Phase B: Asset Migration
+
 - [ ] Copy all favicon files from Srjay.com-GSAP-main
 - [ ] Copy logo files (SVG, PNG)
 - [ ] Copy profile photo
@@ -1159,6 +1203,7 @@ Add to `package.json`:
 - [ ] Update `<head>` meta tags for favicons
 
 ### Phase C: Seeding System
+
 - [ ] Create `src/endpoints/seed/` directory structure
 - [ ] Implement main seed orchestrator (`index.ts`)
 - [ ] Create Profile seed data factory

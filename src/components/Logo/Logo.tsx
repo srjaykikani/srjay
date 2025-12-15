@@ -16,7 +16,7 @@ export const Logo = (props: Props) => {
         className,
       )}
     >
-      S R Jay
+      S R Jay Kikani
     </span>
   )
 }
