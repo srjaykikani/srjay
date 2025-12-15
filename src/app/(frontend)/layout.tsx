@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import React from 'react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 
 import { TRPCReactProvider } from '@/trpc/client'
 import { Providers } from '@/providers'
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </Providers>
         </TRPCReactProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
