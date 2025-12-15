@@ -40,13 +40,46 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   title: {
-    default: 'srjay',
-    template: '%s | srjay',
+    default: 'Jay Kikani | Full-Stack Developer',
+    template: '%s | Jay Kikani',
   },
-  description: 'Portfolio of srjay - Full-stack developer specializing in modern web technologies.',
+  description:
+    'Jay Kikani (srjay) - Full-stack developer specializing in Next.js, Payload CMS, React, and TypeScript. Building scalable web applications with modern technologies.',
+  keywords: [
+    'Jay Kikani',
+    'srjay',
+    'Full-Stack Developer',
+    'Next.js Developer',
+    'Payload CMS',
+    'React Developer',
+    'TypeScript',
+    'Web Development',
+    'tRPC',
+    'TanStack Query',
+    'Software Engineer',
+    'ChallengeRate',
+  ],
+  authors: [{ name: 'Jay Kikani', url: 'https://srjay.com' }],
+  creator: 'Jay Kikani',
+  publisher: 'Jay Kikani',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
     creator: '@_srjay',
+    site: '@_srjay',
+    title: 'Jay Kikani | Full-Stack Developer',
+    description:
+      'Full-stack developer specializing in Next.js, Payload CMS, React, and TypeScript. Building scalable web applications.',
   },
 }

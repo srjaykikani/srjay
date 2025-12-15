@@ -4,14 +4,20 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'Portfolio of srjay - Full-stack developer specializing in modern web technologies.',
+  locale: 'en_US',
+  url: getServerSideURL(),
+  siteName: 'Jay Kikani',
+  title: 'Jay Kikani | Full-Stack Developer',
+  description:
+    'Jay Kikani (srjay) - Full-stack developer specializing in Next.js, Payload CMS, React, and TypeScript. Building scalable web applications with modern technologies.',
   images: [
     {
       url: `${getServerSideURL()}/og-image.png`,
+      width: 1200,
+      height: 630,
+      alt: 'Jay Kikani - Full-Stack Developer',
     },
   ],
-  siteName: 'srjay',
-  title: 'srjay',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
