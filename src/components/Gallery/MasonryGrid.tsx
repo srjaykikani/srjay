@@ -19,23 +19,13 @@ export function MasonryGrid({ items, columns = 2 }: MasonryGridProps) {
   if (items.length === 0) {
     return (
       <div className="flex min-h-[240px] items-center justify-center rounded-xl border border-border bg-muted/40">
-        <p className="text-sm text-muted-foreground">
-          Gallery coming soon. Check back shortly!
-        </p>
+        <p className="text-sm text-muted-foreground">Gallery coming soon. Check back shortly!</p>
       </div>
     )
   }
 
   return (
-    <div
-      data-pswp-gallery="gallery"
-      className={cn(
-        'grid gap-4',
-        columns === 1 && 'grid-cols-1',
-        columns === 2 && 'grid-cols-1 sm:grid-cols-2',
-        columns === 3 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-      )}
-    >
+    <div data-pswp-gallery="gallery" className="masonry-grid">
       {items.map((item, index) => (
         <GalleryItem key={item.id} item={item} index={index} />
       ))}
@@ -74,7 +64,7 @@ function GalleryItem({ item, index }: GalleryItemProps) {
       data-cropped="true"
       target="_blank"
       rel="noreferrer"
-      className="group relative block w-full overflow-hidden rounded-xl border border-border bg-muted/40 transition-all duration-300 hover:border-border/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+      className="masonry-item group relative block w-full overflow-hidden rounded-xl border border-border bg-muted/40 transition-all duration-300 hover:border-border/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
       style={{ aspectRatio }}
     >
       <Image
@@ -91,9 +81,7 @@ function GalleryItem({ item, index }: GalleryItemProps) {
       {(item.title || item.description) && (
         <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <div className="flex flex-col gap-1 p-3 text-white">
-            {item.title && (
-              <h3 className="text-sm font-medium drop-shadow-sm">{item.title}</h3>
-            )}
+            {item.title && <h3 className="text-sm font-medium drop-shadow-sm">{item.title}</h3>}
             {item.description && (
               <p className="text-xs text-white/80 line-clamp-2">{item.description}</p>
             )}

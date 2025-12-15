@@ -169,7 +169,6 @@ body {
   --tw-prose-td-borders: var(--border);
 }
 
-/* Dark mode prose - invert colors handled by dark:prose-invert */
 [data-theme='dark'] .prose {
   --tw-prose-invert-body: var(--muted-foreground);
   --tw-prose-invert-headings: var(--foreground);
@@ -187,4 +186,29 @@ body {
   --tw-prose-invert-pre-bg: var(--muted);
   --tw-prose-invert-th-borders: var(--border);
   --tw-prose-invert-td-borders: var(--border);
+}
+
+/* Masonry gallery layout */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  display: inline-block;
+  width: 100%;
 }
