@@ -2,17 +2,19 @@
 
 import Image from 'next/image'
 
-import { cn } from '@/lib/utils'
 import { getMedia } from '@/lib/type-guards'
 import { usePhotoSwipe } from '@/hooks/usePhotoSwipe'
 import type { Gallery, Media } from '@/payload-types'
 
+// Tiny 1x1 pixel blur placeholder (gray)
+const BLUR_DATA_URL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+
 interface MasonryGridProps {
   items: Gallery[]
-  columns?: number
 }
 
-export function MasonryGrid({ items, columns = 2 }: MasonryGridProps) {
+export function MasonryGrid({ items }: MasonryGridProps) {
   // Initialize PhotoSwipe
   usePhotoSwipe([items])
 
@@ -73,6 +75,8 @@ function GalleryItem({ item, index }: GalleryItemProps) {
         fill
         priority={index < 4}
         sizes="(max-width: 640px) 100vw, 50vw"
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-black/10 ring-inset dark:ring-white/15" />
