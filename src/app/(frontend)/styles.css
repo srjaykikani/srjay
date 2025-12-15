@@ -200,12 +200,6 @@ body {
   }
 }
 
-@media (min-width: 1024px) {
-  .masonry-grid {
-    column-count: 3;
-  }
-}
-
 .masonry-item {
   break-inside: avoid;
   margin-bottom: 1rem;
