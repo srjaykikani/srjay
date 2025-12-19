@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @import 'tailwindcss';
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 @plugin '@tailwindcss/typography';
 
 @theme inline {
@@ -43,6 +47,15 @@
   --color-brand-alpha-medium: var(--brand-alpha-medium);
 
   --radius: 0.625rem;
+
+  --animate-skeleton:
+    skeleton 2s -1s infinite linear;
+  @keyframes skeleton {
+  to {
+    background-position:
+    -200% 0;
+    }
+  }
 }
 
 :root {
@@ -205,4 +218,30 @@ body {
   margin-bottom: 1rem;
   display: inline-block;
   width: 100%;
+}
+
+.dark {
+  --destructive-foreground:
+    var(--color-red-400);
+  --info:
+    var(--color-blue-500);
+  --info-foreground:
+    var(--color-blue-400);
+  --success:
+    var(--color-emerald-500);
+  --success-foreground:
+    var(--color-emerald-400);
+  --warning:
+    var(--color-amber-500);
+  --warning-foreground:
+    var(--color-amber-400);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
