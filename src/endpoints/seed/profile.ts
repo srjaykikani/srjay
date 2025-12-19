@@ -60,14 +60,9 @@ type ProfileData = {
 
 export function getProfileData(mediaMap: MediaMap): ProfileData {
   return {
-    // Basic Info
     name: "Hey, I'm Jay!",
     title: 'Software Developer',
-
-    // Languages
     languages: [{ language: 'English' }, { language: 'Hindi' }, { language: 'Gujarati' }],
-
-    // Bio with rich formatting
     bio: richText(
       paragraph(
         text(
@@ -83,20 +78,12 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
         ),
       ),
     ),
-
-    // Media
     avatar: mediaMap['avatar'],
-
-    // Contact Info
     email: 'hello@example.com',
     phone: '+1 (555) 123-4567',
     location: 'Gujarat, India',
     timezone: 'Asia/Kolkata',
-
-    // GitHub - For contribution graph
     github: 'srjaykikani',
-
-    // Social Links - GitHub, Twitter/X, Instagram, LinkedIn only
     socialLinks: [
       {
         platform: 'github',
