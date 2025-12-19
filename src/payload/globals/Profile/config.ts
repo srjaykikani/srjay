@@ -139,14 +139,6 @@ export const Profile: GlobalConfig = {
         initCollapsed: false,
       },
     },
-    {
-      name: 'resumeUrl',
-      label: 'Resume URL',
-      type: 'text',
-      admin: {
-        description: 'Link to your resume/CV PDF',
-      },
-    },
   ],
   hooks: {
     afterChange: [

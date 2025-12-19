@@ -1054,10 +1054,6 @@ export interface Profile {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Link to your resume/CV PDF
-   */
-  resumeUrl?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1134,7 +1130,6 @@ export interface ProfileSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
-  resumeUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

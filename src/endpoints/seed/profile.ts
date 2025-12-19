@@ -56,7 +56,6 @@ type ProfileData = {
     url: string
     label?: string
   }[]
-  resumeUrl?: string
 }
 
 export function getProfileData(mediaMap: MediaMap): ProfileData {
@@ -89,8 +88,8 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
     avatar: mediaMap['avatar'],
 
     // Contact Info
-    email: 'srjaykikani@gmail.com',
-    phone: '+91 81400 59722',
+    email: 'hello@example.com',
+    phone: '+1 (555) 123-4567',
     location: 'Gujarat, India',
     timezone: 'Asia/Kolkata',
 
@@ -120,9 +119,6 @@ export function getProfileData(mediaMap: MediaMap): ProfileData {
         label: 'LinkedIn',
       },
     ],
-
-    // Resume
-    resumeUrl: 'https://srjay.com/resume.pdf',
   }
 }
 
