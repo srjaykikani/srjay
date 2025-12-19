@@ -66,6 +66,10 @@ src/
 └── utilities/           # App helpers (URL, SEO, globals)
 ```
 
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
 ## License
 
-MIT
+MIT - Feel free to use this code for your own portfolio.
