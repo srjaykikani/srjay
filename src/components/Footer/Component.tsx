@@ -56,6 +56,17 @@ export async function Footer() {
               Tailwind CSS
             </a>
           </p>
+          <p>
+            Source code on{' '}
+            <a
+              href="https://github.com/srjaykikani/srjay"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-muted-foreground transition-colors"
+            >
+              GitHub
+            </a>
+          </p>
         </div>
       </div>
     </footer>
