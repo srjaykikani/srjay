@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 
-import { cn } from '@/lib/utils'
 import { getMedia } from '@/lib/type-guards'
 import { usePhotoSwipe } from '@/hooks/usePhotoSwipe'
 import type { Gallery, Media } from '@/payload-types'
@@ -12,7 +11,7 @@ interface MasonryGridProps {
   columns?: number
 }
 
-export function MasonryGrid({ items, columns = 2 }: MasonryGridProps) {
+export function MasonryGrid({ items, columns: _columns = 2 }: MasonryGridProps) {
   // Initialize PhotoSwipe
   usePhotoSwipe([items])
 

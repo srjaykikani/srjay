@@ -4,7 +4,6 @@ import { TZDate, tzOffset } from '@date-fns/tz'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
 import {
-  Briefcase,
   Clock1Icon,
   Clock2Icon,
   Clock3Icon,
