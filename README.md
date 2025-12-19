@@ -60,7 +60,12 @@ src/
 │   ├── (payload)/       # Payload Admin
 │   └── api/trpc/        # tRPC endpoint
 ├── components/          # React components
+├── lib/                 # UI utilities (cn, type guards)
 ├── payload/             # Payload CMS config
 ├── trpc/                # tRPC setup
-└── utilities/           # Shared utilities
+└── utilities/           # App helpers (URL, SEO, globals)
 ```
+
+## License
+
+MIT
