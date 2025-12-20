@@ -138,7 +138,7 @@ export function OverviewSection({ profile }: OverviewSectionProps) {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Founder @ChallengeRate */}
+        {/* Co-Founder @ChallengeRate */}
         <IntroItem>
           <IntroItemIcon>
             <ExternalLink />
@@ -149,7 +149,7 @@ export function OverviewSection({ profile }: OverviewSectionProps) {
             rel="noopener noreferrer"
             className="underline-offset-4 hover:underline text-balance"
           >
-            Founder @ChallengeRate
+            Co-Founder @ChallengeRate
           </a>
         </IntroItem>
 
