@@ -69,7 +69,7 @@ const DEFAULT_MONTH_LABELS = [
 const DEFAULT_LABELS: Labels = {
   months: DEFAULT_MONTH_LABELS,
   weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  totalCount: '{{count}} activities in {{year}}',
+  totalCount: '{{count}} activities in the last year',
   legend: {
     less: 'Less',
     more: 'More',
@@ -354,10 +354,7 @@ export const ContributionGraphCalendar = ({
   const { weeks, width, height, blockSize, blockMargin, labels } = useContributionGraph()
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  const monthLabels = useMemo(
-    () => getMonthLabels(weeks, labels.months),
-    [weeks, labels.months],
-  )
+  const monthLabels = useMemo(() => getMonthLabels(weeks, labels.months), [weeks, labels.months])
 
   // Scroll to end (most recent contributions) on mount
   useEffect(() => {
@@ -382,7 +379,11 @@ export const ContributionGraphCalendar = ({
         {!hideMonthLabels && (
           <g className="fill-current">
             {monthLabels.map(({ label, weekIndex }) => (
-              <text dominantBaseline="hanging" key={weekIndex} x={(blockSize + blockMargin) * weekIndex}>
+              <text
+                dominantBaseline="hanging"
+                key={weekIndex}
+                x={(blockSize + blockMargin) * weekIndex}
+              >
                 {label}
               </text>
             ))}
@@ -408,14 +409,8 @@ export const ContributionGraphCalendar = ({
 
 export type ContributionGraphFooterProps = HTMLAttributes<HTMLDivElement>
 
-export const ContributionGraphFooter = ({
-  className,
-  ...props
-}: ContributionGraphFooterProps) => (
-  <div
-    className={cn('flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4', className)}
-    {...props}
-  />
+export const ContributionGraphFooter = ({ className, ...props }: ContributionGraphFooterProps) => (
+  <div className={cn('flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4', className)} {...props} />
 )
 
 export type ContributionGraphTotalCountProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
@@ -436,10 +431,8 @@ export const ContributionGraphTotalCount = ({
   return (
     <div className={cn('text-muted-foreground', className)} {...props}>
       {labels.totalCount
-        ? labels.totalCount
-            .replace('{{count}}', String(totalCount))
-            .replace('{{year}}', String(year))
-        : `${totalCount} activities in ${year}`}
+        ? labels.totalCount.replace('{{count}}', String(totalCount))
+        : `${totalCount} activities in the last year`}
     </div>
   )
 }
