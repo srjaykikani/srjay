@@ -54,7 +54,7 @@ export function GitHubSection({ username, contributions }: GitHubSectionProps) {
         <ContributionGraphTotalCount>
           {({ totalCount, year }) => (
             <div className="text-muted-foreground text-xs">
-              {totalCount.toLocaleString('en')} contributions in {year} on{' '}
+              {totalCount.toLocaleString('en')} contributions in the last year on{' '}
               <a
                 className="font-medium underline underline-offset-4"
                 href={`https://github.com/${username}`}
