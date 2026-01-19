@@ -34,7 +34,9 @@ export async function generateStaticParams() {
     pagination: false,
   })
 
-  return docs.map((doc) => ({ slug: doc.slug }))
+  return docs
+    .filter((doc): doc is typeof doc & { slug: string } => typeof doc.slug === 'string')
+    .map((doc) => ({ slug: doc.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

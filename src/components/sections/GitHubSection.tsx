@@ -52,7 +52,7 @@ export function GitHubSection({ username, contributions }: GitHubSectionProps) {
 
       <ContributionGraphFooter>
         <ContributionGraphTotalCount>
-          {({ totalCount, year }) => (
+          {({ totalCount }) => (
             <div className="text-muted-foreground text-xs">
               {totalCount.toLocaleString('en')} contributions in the last year on{' '}
               <a
